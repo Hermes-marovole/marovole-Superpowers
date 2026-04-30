@@ -1,0 +1,1652 @@
+{
+  "version": "1.0.0",
+  "source": "awesome-gpt-image-2 (YouMind-OpenLab)",
+  "source_repo": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2",
+  "web_gallery": "https://youmind.com/gpt-image-2-prompts",
+  "built_at": "2026-04-26",
+  "stats": {
+    "total_prompts": 126,
+    "json_prompts": 32,
+    "featured_prompts": 6,
+    "raycast_prompts": 95,
+    "categories": 10
+  },
+  "category_profiles": {
+    "ecommerce": {
+      "count": 50,
+      "common_patterns": {
+        "studio-product": 23,
+        "premium-luxury": 22,
+        "minimalist": 14,
+        "cinematic": 12,
+        "grid-collage": 10
+      },
+      "json_ratio": 0.32,
+      "samples": [
+        {
+          "id": "youmind-1",
+          "title": "VR Headset Exploded View Poster",
+          "prompt_type": "json"
+        },
+        {
+          "id": "youmind-4",
+          "title": "E-commerce Live Stream UI Mockup",
+          "prompt_type": "json"
+        },
+        {
+          "id": "youmind-5",
+          "title": "Anime Martial Arts Battle Illustration",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "map": {
+      "count": 5,
+      "common_patterns": {
+        "cinematic": 3,
+        "watercolor": 2,
+        "grid-collage": 1,
+        "premium-luxury": 1,
+        "studio-product": 1
+      },
+      "json_ratio": 0.2,
+      "samples": [
+        {
+          "id": "youmind-2",
+          "title": "Illustrated City Food Map",
+          "prompt_type": "json"
+        }
+      ]
+    },
+    "illustration": {
+      "count": 33,
+      "common_patterns": {
+        "illustration": 16,
+        "cinematic": 13,
+        "premium-luxury": 4,
+        "minimalist": 3,
+        "json-structured": 3
+      },
+      "json_ratio": 0.18181818181818182,
+      "samples": [
+        {
+          "id": "youmind-3",
+          "title": "Momotaro Explainer Slide in Hybrid Style",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "slide-infographic": {
+      "count": 6,
+      "common_patterns": {
+        "callout-labels": 2,
+        "3d-render": 1,
+        "json-structured": 1,
+        "minimalist": 1,
+        "premium-luxury": 1
+      },
+      "json_ratio": 0.3333333333333333,
+      "samples": [
+        {
+          "id": "youmind-6",
+          "title": "3D Stone Staircase Evolution Infographic",
+          "prompt_type": "json"
+        }
+      ]
+    },
+    "avatar": {
+      "count": 2,
+      "common_patterns": {},
+      "json_ratio": 0.0,
+      "samples": [
+        {
+          "id": "youmind-1",
+          "title": "Profile / Avatar - Emotional Japanese Student Selfie",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-6",
+          "title": "Profile / Avatar - Personalized VTuber Avatar Prompt",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "photography": {
+      "count": 10,
+      "common_patterns": {
+        "cinematic": 6,
+        "grid-collage": 3,
+        "minimalist": 1,
+        "watercolor": 1,
+        "illustration": 1
+      },
+      "json_ratio": 0.0,
+      "samples": [
+        {
+          "id": "youmind-2",
+          "title": "Profile / Avatar - Redacted Rooftop Portrait",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-5",
+          "title": "Profile / Avatar - Dreamy 16-Photo Couple Walk Collage",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-17",
+          "title": "Profile / Avatar - Clean Japanese/Korean Style Photoshoot",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "ui-mockup": {
+      "count": 12,
+      "common_patterns": {
+        "cinematic": 5,
+        "json-structured": 5,
+        "premium-luxury": 3,
+        "grid-collage": 3,
+        "split-comparison": 2
+      },
+      "json_ratio": 0.4166666666666667,
+      "samples": [
+        {
+          "id": "youmind-8",
+          "title": "Profile / Avatar - WhatsApp Group Profile Avatar",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-13",
+          "title": "Profile / Avatar - Cyberpunk Cyborg Skull Mask Portrait",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-22",
+          "title": "Social Media Post - Japanese Kunoichi Character Prompt",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "poster": {
+      "count": 3,
+      "common_patterns": {
+        "json-structured": 2,
+        "callout-labels": 1,
+        "split-comparison": 1,
+        "cinematic": 1
+      },
+      "json_ratio": 0.6666666666666666,
+      "samples": [
+        {
+          "id": "youmind-44",
+          "title": "Infographic / Edu Visual - Monument Architectural Infographic Poster",
+          "prompt_type": "json"
+        },
+        {
+          "id": "youmind-46",
+          "title": "Infographic / Edu Visual - Eduardo Abaroa Monument Infographic",
+          "prompt_type": "json"
+        },
+        {
+          "id": "youmind-52",
+          "title": "YouTube Thumbnail - Cyberpunk AI Tools Comparison Poster",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "thumbnail": {
+      "count": 3,
+      "common_patterns": {
+        "premium-luxury": 1,
+        "studio-product": 1
+      },
+      "json_ratio": 0.0,
+      "samples": [
+        {
+          "id": "youmind-62",
+          "title": "YouTube Thumbnail - Spanish GRWM Morning Beauty Thumbnail",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-67",
+          "title": "YouTube Thumbnail - Celebrity Livestream Concept",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-68",
+          "title": "YouTube Thumbnail - Neon Blue AI Video Editing Thumbnail",
+          "prompt_type": "text"
+        }
+      ]
+    },
+    "other": {
+      "count": 2,
+      "common_patterns": {
+        "cinematic": 2,
+        "minimalist": 1
+      },
+      "json_ratio": 0.0,
+      "samples": [
+        {
+          "id": "youmind-72",
+          "title": "Comic / Storyboard - 1980s Japanese Film Style Storyboard",
+          "prompt_type": "text"
+        },
+        {
+          "id": "youmind-78",
+          "title": "Comic / Storyboard - Samurai Before a Hillside Fire",
+          "prompt_type": "text"
+        }
+      ]
+    }
+  },
+  "category_prompts": {
+    "avatar": [
+      {
+        "id": "youmind-1",
+        "title": "Profile / Avatar - Emotional Japanese Student Selfie",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/tanabe_fragm/status/2047820383253061908"
+      },
+      {
+        "id": "youmind-6",
+        "title": "Profile / Avatar - Personalized VTuber Avatar Prompt",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/gomdanjp/status/2047745770271781351"
+      }
+    ],
+    "ecommerce": [
+      {
+        "id": "youmind-1",
+        "title": "VR Headset Exploded View Poster",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "exploded-view",
+          "callout-labels",
+          "3d-render",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/wory37303852/status/2045925660401795478#reversed-0"
+      },
+      {
+        "id": "youmind-4",
+        "title": "E-commerce Live Stream UI Mockup",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/sjbbxhz/status/2045684734714380687#reversed-0"
+      },
+      {
+        "id": "youmind-5",
+        "title": "Anime Martial Arts Battle Illustration",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "illustration"
+        ],
+        "source_url": "https://x.com/Tanemomi_Ver2/status/2046063806846214265#reversed-0"
+      },
+      {
+        "id": "youmind-15",
+        "title": "Profile / Avatar - Selfie to Studio Headshot",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/rgbarcena/status/2047580598068277496#reversed-2"
+      },
+      {
+        "id": "youmind-16",
+        "title": "Profile / Avatar - Studio Portrait From Vacation Selfie",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/rgbarcena/status/2047580598068277496#reversed-1"
+      },
+      {
+        "id": "youmind-21",
+        "title": "Social Media Post - 4-Panel Japanese Digital Ad Banner Grid",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage"
+        ],
+        "source_url": "https://x.com/makaneko_AI/status/2045764016858087720#reversed-0"
+      },
+      {
+        "id": "youmind-37",
+        "title": "Infographic / Edu Visual - Japanese Ultra Plan Promo Storyboard",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "split-comparison",
+          "watercolor",
+          "cinematic",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/luche_whitewing/status/2047818646953902406#reversed-3"
+      },
+      {
+        "id": "youmind-49",
+        "title": "Infographic / Edu Visual - Commercial Product Infographic",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "callout-labels",
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/j_smeaton99/status/2047703664303931407"
+      },
+      {
+        "id": "youmind-51",
+        "title": "YouTube Thumbnail - Neon AI Thumbnail Comparison",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage"
+        ],
+        "source_url": "https://x.com/MoveHiro1219/status/2047698611665096732#reversed-3"
+      },
+      {
+        "id": "youmind-54",
+        "title": "YouTube Thumbnail - Monika Anime Banner Illustration",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury",
+          "illustration"
+        ],
+        "source_url": "https://x.com/mirochill/status/2047639852485620070#reversed-3"
+      },
+      {
+        "id": "youmind-56",
+        "title": "YouTube Thumbnail - Pink Anime Natsuki Banner",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "cinematic"
+        ],
+        "source_url": "https://x.com/mirochill/status/2047639852485620070#reversed-0"
+      },
+      {
+        "id": "youmind-60",
+        "title": "YouTube Thumbnail - Tokyo DisneySea Front-Row Battle UI",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "split-comparison"
+        ],
+        "source_url": "https://x.com/mikko_20100518/status/2047514897404354598#reversed-0"
+      },
+      {
+        "id": "youmind-61",
+        "title": "YouTube Thumbnail - Anime Music Bootcamp Promo Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "callout-labels",
+          "cinematic",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/sorane_aimusic/status/2047507066697507134#reversed-0"
+      },
+      {
+        "id": "youmind-63",
+        "title": "YouTube Thumbnail - Cinematic City Explosion Chase",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/Gugombly/status/2047310862428303636#reversed-0"
+      },
+      {
+        "id": "youmind-66",
+        "title": "YouTube Thumbnail - Wuxia Movie Character Posters",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [],
+        "source_url": "https://x.com/songguoxiansen/status/2047204566559756707"
+      },
+      {
+        "id": "youmind-74",
+        "title": "Comic / Storyboard - Retro Tokusatsu Armor Candid Portrait",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/yy7482933910896/status/2047768245575483530#reversed-2"
+      },
+      {
+        "id": "youmind-80",
+        "title": "Comic / Storyboard - Futuristic Tactical Character Sheet",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "minimalist",
+          "3d-render",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/0xInk_/status/2047745779318804534#reversed-0"
+      },
+      {
+        "id": "youmind-88",
+        "title": "Product Marketing - Anime Character Brand Identity & Merch Board",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/chi_vc_/status/2046061073720369228#reversed-0"
+      },
+      {
+        "id": "youmind-89",
+        "title": "Product Marketing - Dark Mode Marketing Case Study UI",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "cinematic"
+        ],
+        "source_url": "https://x.com/IndieDevHailey/status/2044974254769463312#reversed-0"
+      },
+      {
+        "id": "youmind-90",
+        "title": "Product Marketing - 18-Panel Mascot Brand Identity Document",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "3d-render"
+        ],
+        "source_url": "https://x.com/Colin_Leeee/status/2044802802149650631#reversed-2"
+      },
+      {
+        "id": "youmind-91",
+        "title": "Product Marketing - Japanese SaaS Form Builder Banner",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "minimalist",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/Satohide1994/status/2047941571748995546#reversed-3"
+      },
+      {
+        "id": "youmind-92",
+        "title": "Product Marketing - Japanese SaaS Feature Banner",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "minimalist",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/Satohide1994/status/2047941571748995546#reversed-0"
+      },
+      {
+        "id": "youmind-93",
+        "title": "Product Marketing - Japanese SaaS Before-After Banner",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "before-after",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/Satohide1994/status/2047941571748995546#reversed-2"
+      },
+      {
+        "id": "youmind-94",
+        "title": "Product Marketing - Japanese SaaS Trigger Automation Banner",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "minimalist"
+        ],
+        "source_url": "https://x.com/Satohide1994/status/2047941571748995546#reversed-1"
+      },
+      {
+        "id": "youmind-95",
+        "title": "Product Marketing - Retro Super Famicom RPG Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "callout-labels"
+        ],
+        "source_url": "https://x.com/sakepon_diary/status/2047823923384058158#reversed-0"
+      },
+      {
+        "id": "youmind-96",
+        "title": "Product Marketing - Tea Brand Product Advertisement Mockup",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/maimai0049/status/2047821399184847050"
+      },
+      {
+        "id": "youmind-97",
+        "title": "Product Marketing - Illustrated Classic Car Magazine Cover",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/etsuko256/status/2047802171916447978#reversed-0"
+      },
+      {
+        "id": "youmind-98",
+        "title": "Product Marketing - Cute Gamelist App Logo Mockup",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "minimalist"
+        ],
+        "source_url": "https://x.com/marmaduke091/status/2047793507050443135#reversed-0"
+      },
+      {
+        "id": "youmind-99",
+        "title": "Product Marketing - Hyper-realistic Fashion Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury",
+          "3d-render",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/miratechtool/status/2047780974709346606"
+      },
+      {
+        "id": "youmind-100",
+        "title": "Product Marketing - Avant-Garde Fashion Eyewear Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/QamarRiaz1/status/2047777016733110722"
+      },
+      {
+        "id": "youmind-101",
+        "title": "Product Marketing - Four Japanese Ad Visuals Collage",
+        "prompt_type": "json",
+        "raycast": false,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/yasuaki_05/status/2047776482739826800#reversed-0"
+      },
+      {
+        "id": "youmind-102",
+        "title": "E-commerce Main Image - Luxury Amber Perfume Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/Polanco_IA/status/2047689647967609037#reversed-0"
+      },
+      {
+        "id": "youmind-103",
+        "title": "E-commerce Main Image - Skincare Product Studio Shot",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/Strength04_X/status/2047636636847231222"
+      },
+      {
+        "id": "youmind-104",
+        "title": "E-commerce Main Image - Tropical Citrus Soda Ad Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/edimakorfr/status/2047635133466124726#reversed-1"
+      },
+      {
+        "id": "youmind-105",
+        "title": "E-commerce Main Image - Industrial Design Presentation Sheet",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "minimalist",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/ShamsAmin56/status/2047627860752621647"
+      },
+      {
+        "id": "youmind-106",
+        "title": "E-commerce Main Image - Luxury Fur-Lined Loafer Lifestyle Photo",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "minimalist",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/dynamicwangs/status/2047580984342925545#reversed-2"
+      },
+      {
+        "id": "youmind-107",
+        "title": "E-commerce Main Image - Luxury Perfume Ad on Marble Vanity",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/MiguelMaestroIA/status/2047555836252151831#reversed-3"
+      },
+      {
+        "id": "youmind-108",
+        "title": "E-commerce Main Image - Luxury Sunglasses Summer Sale Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/MiguelMaestroIA/status/2047555836252151831#reversed-2"
+      },
+      {
+        "id": "youmind-109",
+        "title": "E-commerce Main Image - Before and After Handbag Ad",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "before-after",
+          "split-comparison",
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/MiguelMaestroIA/status/2047555836252151831#reversed-0"
+      },
+      {
+        "id": "youmind-110",
+        "title": "E-commerce Main Image - Luxury Red Lipstick Ad Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "split-comparison",
+          "cinematic",
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/MiguelMaestroIA/status/2047555836252151831#reversed-1"
+      },
+      {
+        "id": "youmind-111",
+        "title": "E-commerce Main Image - Minimalist Serum Product Collage",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/Taaruk_/status/2047505334651249135#reversed-0"
+      },
+      {
+        "id": "youmind-112",
+        "title": "E-commerce Main Image - 3D Packaging to 2D Net Unfolding",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "3d-render"
+        ],
+        "source_url": "https://x.com/ammiamia_/status/2047370522384846968"
+      },
+      {
+        "id": "youmind-113",
+        "title": "E-commerce Main Image - Luxury Perfume Ad Shot",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/Polanco_IA/status/2047316043589366031#reversed-0"
+      },
+      {
+        "id": "youmind-114",
+        "title": "E-commerce Main Image - Character-Based Brand Identity Design",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [],
+        "source_url": "https://x.com/roco_kn_roco/status/2047280707471638887"
+      },
+      {
+        "id": "youmind-115",
+        "title": "E-commerce Main Image - Tropical Product Photography",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "split-comparison",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/meng_dagg695/status/2047227172486824002"
+      },
+      {
+        "id": "youmind-116",
+        "title": "E-commerce Main Image - Luxury Perfume Editorial Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "split-comparison",
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/choyamymuna/status/2047220515841208628#reversed-0"
+      },
+      {
+        "id": "youmind-117",
+        "title": "E-commerce Main Image - Luxury Hair Dryer Beauty Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "callout-labels",
+          "minimalist",
+          "premium-luxury",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/choyamymuna/status/2047220515841208628#reversed-1"
+      },
+      {
+        "id": "youmind-118",
+        "title": "E-commerce Main Image - Luxury Botanical Skincare Forest Ad",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/shedntcare_/status/2047219713256911332#reversed-0"
+      },
+      {
+        "id": "youmind-119",
+        "title": "E-commerce Main Image - Consistent Product Kit Photography",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/aimikoda/status/2047198646827991310"
+      },
+      {
+        "id": "youmind-120",
+        "title": "E-commerce Main Image - Japanese Shoe Laundry Bag Ad",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "callout-labels",
+          "grid-collage",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/okuda_buppan/status/2047198234452627899#reversed-3"
+      }
+    ],
+    "illustration": [
+      {
+        "id": "youmind-3",
+        "title": "Momotaro Explainer Slide in Hybrid Style",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "illustration"
+        ],
+        "source_url": "https://x.com/yammamon/status/2045778624092254603"
+      },
+      {
+        "id": "youmind-3",
+        "title": "Profile / Avatar - Rainbow Bunny DJ Anime Portrait",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/miya_SUEMYST/status/2047806627391345036#reversed-1"
+      },
+      {
+        "id": "youmind-4",
+        "title": "Profile / Avatar - Rainbow Bunny DJ Anime Portrait",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "illustration"
+        ],
+        "source_url": "https://x.com/miya_SUEMYST/status/2047806627391345036#reversed-0"
+      },
+      {
+        "id": "youmind-7",
+        "title": "Profile / Avatar - Nostalgic Polaroid Portrait Prompt",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/dejavucoder/status/2047723352417329411"
+      },
+      {
+        "id": "youmind-9",
+        "title": "Profile / Avatar - Manaka Takane Character Prompt",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/ZhiZi3795/status/2047691546267676989"
+      },
+      {
+        "id": "youmind-10",
+        "title": "Profile / Avatar - Anime Archer Portrait with Censored Face",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "minimalist"
+        ],
+        "source_url": "https://x.com/csldt1991/status/2047686204011802755#reversed-0"
+      },
+      {
+        "id": "youmind-11",
+        "title": "Profile / Avatar - Gothic Anime Girl with Black Roses",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "illustration"
+        ],
+        "source_url": "https://x.com/4EXP_/status/2047673458277187801#reversed-0"
+      },
+      {
+        "id": "youmind-12",
+        "title": "Profile / Avatar - Minimalist Anime Girl Side Profile",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "minimalist",
+          "illustration"
+        ],
+        "source_url": "https://x.com/maku67879787/status/2047643632015159517#reversed-1"
+      },
+      {
+        "id": "youmind-18",
+        "title": "Profile / Avatar - Emerald Dark Sorceress Ritual",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "illustration"
+        ],
+        "source_url": "https://x.com/LinK_iPhoto/status/2047565297566249305#reversed-0"
+      },
+      {
+        "id": "youmind-19",
+        "title": "Profile / Avatar - Crimson Dark Sorceress Ritual",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "illustration"
+        ],
+        "source_url": "https://x.com/LinK_iPhoto/status/2047565297566249305#reversed-1"
+      },
+      {
+        "id": "youmind-27",
+        "title": "Social Media Post - Reference-Based Character Portrait Prompt",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/komorimedia/status/2047783624301580431"
+      },
+      {
+        "id": "youmind-32",
+        "title": "Social Media Post - Colossal Labyrinth Woman Monument",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/MuratAykul/status/2047760031186104358#reversed-0"
+      },
+      {
+        "id": "youmind-33",
+        "title": "Social Media Post - Satirical Tech Money Jet Photo",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/maestroalvarez/status/2047755376687223139#reversed-0"
+      },
+      {
+        "id": "youmind-35",
+        "title": "Social Media Post - Jon Jones vs Poatan Care Bears Style",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/JonSold3ra/status/2047750117550137399"
+      },
+      {
+        "id": "youmind-43",
+        "title": "Infographic / Edu Visual - Anime Crowd POV Comparison",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "before-after",
+          "cinematic"
+        ],
+        "source_url": "https://x.com/chesnyfcb/status/2047714457774637213#reversed-0"
+      },
+      {
+        "id": "youmind-48",
+        "title": "Infographic / Edu Visual - Chibi Rabbit OpenPose Diagram",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "minimalist",
+          "illustration"
+        ],
+        "source_url": "https://x.com/grmchn4ai/status/2047707165117595926#reversed-0"
+      },
+      {
+        "id": "youmind-53",
+        "title": "YouTube Thumbnail - Japanese AI Battle YouTube Thumbnail",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "split-comparison"
+        ],
+        "source_url": "https://x.com/MoveHiro1219/status/2047698611665096732#reversed-0"
+      },
+      {
+        "id": "youmind-55",
+        "title": "YouTube Thumbnail - Purple Anime Yuri Banner",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury",
+          "illustration"
+        ],
+        "source_url": "https://x.com/mirochill/status/2047639852485620070#reversed-2"
+      },
+      {
+        "id": "youmind-57",
+        "title": "YouTube Thumbnail - Dreamy Anime Sayori Banner",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "premium-luxury",
+          "illustration"
+        ],
+        "source_url": "https://x.com/mirochill/status/2047639852485620070#reversed-1"
+      },
+      {
+        "id": "youmind-58",
+        "title": "YouTube Thumbnail - Cyberpunk 404 Witch Summoning",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic",
+          "illustration"
+        ],
+        "source_url": "https://x.com/Eris_Create_Lab/status/2047537707904274795#reversed-1"
+      },
+      {
+        "id": "youmind-64",
+        "title": "YouTube Thumbnail - Anime VTuber Minecraft Stream Thumbnail",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/rerxmsz06/status/2047261622121705782#reversed-1"
+      },
+      {
+        "id": "youmind-65",
+        "title": "YouTube Thumbnail - Cozy Anime ASMR Ear Massage Girl",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "3d-render",
+          "illustration"
+        ],
+        "source_url": "https://x.com/Shion_yamabuki/status/2047232198382964969#reversed-0"
+      },
+      {
+        "id": "youmind-69",
+        "title": "Comic / Storyboard - Dürer Style Sorcery Prompt",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/faanross/status/2047826101519401274"
+      },
+      {
+        "id": "youmind-70",
+        "title": "Comic / Storyboard - Robot Girl Reference Sheet",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "illustration"
+        ],
+        "source_url": "https://x.com/JasminaAi/status/2047813001336754526"
+      },
+      {
+        "id": "youmind-73",
+        "title": "Comic / Storyboard - Retro Sci-Fi Armor Back View",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/yy7482933910896/status/2047768245575483530#reversed-3"
+      },
+      {
+        "id": "youmind-76",
+        "title": "Comic / Storyboard - Neuron on a San Francisco Cable Car",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/hive_echo/status/2047760111284928727#reversed-0"
+      },
+      {
+        "id": "youmind-77",
+        "title": "Comic / Storyboard - Black-and-White Wartime Ink Scene",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic",
+          "illustration"
+        ],
+        "source_url": "https://x.com/MuratAykul/status/2047760031186104358#reversed-3"
+      },
+      {
+        "id": "youmind-79",
+        "title": "Comic / Storyboard - 2x2 Sci-Fi Combat Action Grid",
+        "prompt_type": "json",
+        "raycast": false,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "cinematic",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/0xInk_/status/2047745779318804534#reversed-1"
+      },
+      {
+        "id": "youmind-81",
+        "title": "Comic / Storyboard - 80's Anime Style Memory Grid",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage"
+        ],
+        "source_url": "https://x.com/aimikoda/status/2047718970157875300"
+      },
+      {
+        "id": "youmind-82",
+        "title": "Comic / Storyboard - Anti-AI Villainess Manga Poster",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "illustration"
+        ],
+        "source_url": "https://x.com/nomen_machine/status/2047698862648037846#reversed-0"
+      },
+      {
+        "id": "youmind-84",
+        "title": "Comic / Storyboard - Golden Hour Gyaru in Classroom",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "illustration"
+        ],
+        "source_url": "https://x.com/yume00112211/status/2047693634846564824#reversed-0"
+      },
+      {
+        "id": "youmind-85",
+        "title": "Comic / Storyboard - Moonlit Tiger and Rose Fantasy Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "illustration"
+        ],
+        "source_url": "https://x.com/NemoZhuge/status/2047677282467377311#reversed-0"
+      },
+      {
+        "id": "youmind-87",
+        "title": "Comic / Storyboard - Anime Dragon Girl Reference Sheet",
+        "prompt_type": "json",
+        "raycast": false,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/redwine_caber/status/2047668296586293616#reversed-0"
+      }
+    ],
+    "map": [
+      {
+        "id": "youmind-2",
+        "title": "Illustrated City Food Map",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "watercolor"
+        ],
+        "source_url": "https://x.com/mm_zzm44854/status/2045861258520568230#reversed-1"
+      },
+      {
+        "id": "youmind-14",
+        "title": "Profile / Avatar - Rainy Night Woman Leaning from Car",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/dynamicwangs/status/2047580984342925545#reversed-0"
+      },
+      {
+        "id": "youmind-36",
+        "title": "Infographic / Edu Visual - Vintage Chinese Food Map Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "watercolor",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/ppmmzzcom/status/2047945186014331244#reversed-0"
+      },
+      {
+        "id": "youmind-59",
+        "title": "YouTube Thumbnail - Anime Fantasy Travel Movie Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "studio-product"
+        ],
+        "source_url": "https://x.com/Design4p0/status/2047531978346398002#reversed-0"
+      },
+      {
+        "id": "youmind-83",
+        "title": "Comic / Storyboard - Futuristic Sunset Megacity",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/Alex_Inspira/status/2047695803452686798#reversed-1"
+      }
+    ],
+    "other": [
+      {
+        "id": "youmind-72",
+        "title": "Comic / Storyboard - 1980s Japanese Film Style Storyboard",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/mikumiku_aloha/status/2047809084842492211"
+      },
+      {
+        "id": "youmind-78",
+        "title": "Comic / Storyboard - Samurai Before a Hillside Fire",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic",
+          "minimalist"
+        ],
+        "source_url": "https://x.com/Macbaconai/status/2047751716146209155#reversed-0"
+      }
+    ],
+    "photography": [
+      {
+        "id": "youmind-2",
+        "title": "Profile / Avatar - Redacted Rooftop Portrait",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/dedricreid/status/2047815205179273571#reversed-0"
+      },
+      {
+        "id": "youmind-5",
+        "title": "Profile / Avatar - Dreamy 16-Photo Couple Walk Collage",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "grid-collage"
+        ],
+        "source_url": "https://x.com/towya_aillust/status/2047804854870196507#reversed-0"
+      },
+      {
+        "id": "youmind-17",
+        "title": "Profile / Avatar - Clean Japanese/Korean Style Photoshoot",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "minimalist"
+        ],
+        "source_url": "https://x.com/biteye_sister/status/2047574020997202198"
+      },
+      {
+        "id": "youmind-20",
+        "title": "Profile / Avatar - Moonlit Barn Fashion Portrait",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/agi_exec/status/2047541842091057262#reversed-0"
+      },
+      {
+        "id": "youmind-23",
+        "title": "Social Media Post - Nostalgic Youth Memory Photo Grid",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "grid-collage",
+          "cinematic"
+        ],
+        "source_url": "https://x.com/Ayu_AI_0912/status/2047946655207657777#reversed-0"
+      },
+      {
+        "id": "youmind-24",
+        "title": "Social Media Post - Impressionist Woman by Summer Lake",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "watercolor",
+          "illustration"
+        ],
+        "source_url": "https://x.com/tetsuya_aiart/status/2047827685498646992#reversed-0"
+      },
+      {
+        "id": "youmind-28",
+        "title": "Social Media Post - Mobster Cats Playing Poker",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/sandor_bal6746/status/2047771487659082077#reversed-0"
+      },
+      {
+        "id": "youmind-31",
+        "title": "Social Media Post - Dancing Couple on Cliffside House",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/MuratAykul/status/2047760031186104358#reversed-1"
+      },
+      {
+        "id": "youmind-34",
+        "title": "Social Media Post - Ethereal Piano Performance",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/XSydneyFan/status/2047751127094149195"
+      },
+      {
+        "id": "youmind-75",
+        "title": "Comic / Storyboard - Retro Sci-Fi Heroine With Police",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/yy7482933910896/status/2047768245575483530#reversed-1"
+      }
+    ],
+    "poster": [
+      {
+        "id": "youmind-44",
+        "title": "Infographic / Edu Visual - Monument Architectural Infographic Poster",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured"
+        ],
+        "source_url": "https://x.com/oscarlau/status/2047710173863559439#reversed-2"
+      },
+      {
+        "id": "youmind-46",
+        "title": "Infographic / Edu Visual - Eduardo Abaroa Monument Infographic",
+        "prompt_type": "json",
+        "raycast": false,
+        "design_patterns": [
+          "json-structured",
+          "callout-labels"
+        ],
+        "source_url": "https://x.com/oscarlau/status/2047710173863559439#reversed-1"
+      },
+      {
+        "id": "youmind-52",
+        "title": "YouTube Thumbnail - Cyberpunk AI Tools Comparison Poster",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "split-comparison",
+          "cinematic"
+        ],
+        "source_url": "https://x.com/MoveHiro1219/status/2047698611665096732#reversed-1"
+      }
+    ],
+    "slide-infographic": [
+      {
+        "id": "youmind-6",
+        "title": "3D Stone Staircase Evolution Infographic",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "3d-render"
+        ],
+        "source_url": "https://x.com/GeekCatX/status/2045792240044511277#reversed-1"
+      },
+      {
+        "id": "youmind-39",
+        "title": "Infographic / Edu Visual - Japanese Vacuum Design Sketch Board",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "callout-labels",
+          "minimalist",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/SSSS_CRYPTOMAN/status/2047810072416485506#reversed-0"
+      },
+      {
+        "id": "youmind-40",
+        "title": "Infographic / Edu Visual - Vintage Beagle Botanical Plate",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "callout-labels",
+          "watercolor",
+          "illustration"
+        ],
+        "source_url": "https://x.com/HebMT/status/2047737610005614608#reversed-1"
+      },
+      {
+        "id": "youmind-42",
+        "title": "Infographic / Edu Visual - Restaurant POV Change Comparison",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "before-after"
+        ],
+        "source_url": "https://x.com/chesnyfcb/status/2047714457774637213#reversed-1"
+      },
+      {
+        "id": "youmind-47",
+        "title": "Infographic / Edu Visual - Isometric Micro-World Cross-Section Archive",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/MrLarus/status/2047709029804155226"
+      },
+      {
+        "id": "youmind-50",
+        "title": "Infographic / Edu Visual - VibeCoding Knowledge Visualization Prompt",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/alice168168/status/2047677510205456786"
+      }
+    ],
+    "thumbnail": [
+      {
+        "id": "youmind-62",
+        "title": "YouTube Thumbnail - Spanish GRWM Morning Beauty Thumbnail",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/S0N_IA_/status/2047414367243657296#reversed-0"
+      },
+      {
+        "id": "youmind-67",
+        "title": "YouTube Thumbnail - Celebrity Livestream Concept",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/SelenaGmzIN/status/2047185882009198865"
+      },
+      {
+        "id": "youmind-68",
+        "title": "YouTube Thumbnail - Neon Blue AI Video Editing Thumbnail",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "studio-product"
+        ],
+        "source_url": "https://x.com/dyki_studio/status/2047163229517078599#reversed-0"
+      }
+    ],
+    "ui-mockup": [
+      {
+        "id": "youmind-8",
+        "title": "Profile / Avatar - WhatsApp Group Profile Avatar",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/PromptSin/status/2047722446971613541"
+      },
+      {
+        "id": "youmind-13",
+        "title": "Profile / Avatar - Cyberpunk Cyborg Skull Mask Portrait",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/techhalla/status/2047590985601790317#reversed-0"
+      },
+      {
+        "id": "youmind-22",
+        "title": "Social Media Post - Japanese Kunoichi Character Prompt",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [],
+        "source_url": "https://x.com/Keiji1653050/status/2047947490792804721"
+      },
+      {
+        "id": "youmind-25",
+        "title": "Social Media Post - Cherry Blossom Kimono Portrait Grid",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "cinematic"
+        ],
+        "source_url": "https://x.com/haiz_ai/status/2047786805270118660#reversed-0"
+      },
+      {
+        "id": "youmind-26",
+        "title": "Social Media Post - Pink Surreal Wall Street Fashion Scene",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/DakotaMau/status/2047785569107821056#reversed-0"
+      },
+      {
+        "id": "youmind-29",
+        "title": "Social Media Post - Penguin Roller Coaster Ride",
+        "prompt_type": "text",
+        "raycast": true,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/sandor_bal6746/status/2047761315054174614#reversed-1"
+      },
+      {
+        "id": "youmind-30",
+        "title": "Social Media Post - Penguin on a Carnival Roller Coaster",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "cinematic"
+        ],
+        "source_url": "https://x.com/sandor_bal6746/status/2047761315054174614#reversed-0"
+      },
+      {
+        "id": "youmind-38",
+        "title": "Infographic / Edu Visual - Morning Run Benefits Infographic",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "split-comparison",
+          "premium-luxury"
+        ],
+        "source_url": "https://x.com/nurayuofficial/status/2047811472928207215#reversed-0"
+      },
+      {
+        "id": "youmind-41",
+        "title": "Infographic / Edu Visual - Apple in Eight Visual Grammars",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage",
+          "watercolor",
+          "minimalist"
+        ],
+        "source_url": "https://x.com/JohnnyWang8802/status/2047721399364788641#reversed-0"
+      },
+      {
+        "id": "youmind-45",
+        "title": "Infographic / Edu Visual - Blueprint Monument Infographic Poster",
+        "prompt_type": "json",
+        "raycast": true,
+        "design_patterns": [
+          "json-structured"
+        ],
+        "source_url": "https://x.com/oscarlau/status/2047710173863559439#reversed-0"
+      },
+      {
+        "id": "youmind-71",
+        "title": "Comic / Storyboard - Romantic School Manga Page",
+        "prompt_type": "json",
+        "raycast": false,
+        "design_patterns": [
+          "json-structured",
+          "grid-collage"
+        ],
+        "source_url": "https://x.com/yume00112211/status/2047809772892917936#reversed-0"
+      },
+      {
+        "id": "youmind-86",
+        "title": "Comic / Storyboard - Manga Cover With Bass Girl and Designer Boy",
+        "prompt_type": "text",
+        "raycast": false,
+        "design_patterns": [
+          "split-comparison",
+          "illustration"
+        ],
+        "source_url": "https://x.com/wtry1102/status/2047674937306182009#reversed-0"
+      }
+    ]
+  },
+  "intent_keywords": {
+    "电商": "ecommerce",
+    "产品": "ecommerce",
+    "商品": "ecommerce",
+    "广告": "ecommerce",
+    "包装": "ecommerce",
+    "店铺": "ecommerce",
+    "地图": "map",
+    "旅行": "map",
+    "旅游": "map",
+    "美食": "map",
+    "城市": "map",
+    "界面": "ui-mockup",
+    "UI": "ui-mockup",
+    "APP": "ui-mockup",
+    "直播": "ui-mockup",
+    "动漫": "illustration",
+    "漫画": "illustration",
+    "插画": "illustration",
+    "角色": "illustration",
+    "战斗": "illustration",
+    "海报": "poster",
+    "拆解": "poster",
+    "摄影": "photography",
+    "写真": "photography",
+    "头像": "avatar",
+    "社交": "social-media",
+    "信息图": "slide-infographic",
+    "幻灯片": "slide-infographic",
+    "知识": "slide-infographic",
+    "科普": "slide-infographic",
+    "游戏": "game-asset",
+    "像素": "pixel-art",
+    "product": "ecommerce",
+    "shop": "ecommerce",
+    "advertisement": "ecommerce",
+    "branding": "ecommerce",
+    "map": "map",
+    "travel": "map",
+    "ui": "ui-mockup",
+    "interface": "ui-mockup",
+    "anime": "illustration",
+    "illustration": "illustration",
+    "character": "illustration",
+    "poster": "poster",
+    "photo": "photography",
+    "portrait": "photography",
+    "avatar": "avatar",
+    "infographic": "slide-infographic",
+    "game": "game-asset"
+  }
+}
