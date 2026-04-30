@@ -28,9 +28,13 @@ scripts/
 cd /Users/marovole/Workspace/awesome-gpt-image-2
 git fetch upstream
 git merge upstream/main
-cd /Users/marovole/Workspace/Neuma-Superpower
+cd /Users/marovole/Workspace/Superpowers
 python3 scripts/build-prompt-index.py
 # 检查是否有新分类/模式需要吸收
 git add docs/.prompt-index/ scripts/build-prompt-index.py
 git commit -m "chore: sync prompt index from upstream"
 ```
+
+---
+
+*来自翡冷翠*
