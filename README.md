@@ -16,24 +16,6 @@ Neuma Superpower 是一个持续学习、研究和内化前沿 AI 能力的知�
       └──────────────── 持续迭代反馈 ◄──────────────────────────────┘
 ```
 
-## 当前任务
-
-| # | 任务 | 来源 | 状态 |
-|---|------|------|------|
-| 1 | Hermes GPT-image 能力研究 | [X](https://x.com/nousresearch/status/2046693872773062834) | Todo |
-| 2 | Hermes Team 调研 | [X](https://x.com/canghe/status/2046578259031470510) | Todo |
-| 3 | 全员 Codex 安装与使用 | Internal | Todo |
-| 4 | 公众号排版器 | [X](https://x.com/gorden_sun/status/2046100118336950588) | Todo |
-| 5 | 爬虫三合一 | [X](https://x.com/nftcps/status/2046414824901652766) | Todo |
-| 6 | Skills 合集写教程 | [X](https://x.com/qloog/status/2046394883724992742) | Todo |
-| 7 | Huashu Design (PPT/网页生成) | [X](https://x.com/alchainhust/status/2046431318507147670) | Todo |
-| 8 | MIDI Hearth 调研 | Internal | Todo |
-| 9 | 全自动数字营销 | [X](https://x.com/abskoop/status/2011055753143206130) | Todo |
-| 10 | zhangzala html deck 技能写教程 | Internal | Todo |
-| 11 | 优秀设计感单页报告/项目纸 | [X](https://x.com/hitw93/status/2046585177170968778) | Todo |
-| 12 | X 个人品牌定位策略 (@marovole) | Internal | **Done** |
-| 13 | X 90天重启计划 (@marovole) | Internal | **Done** |
-
 ## 原则
 
 - **信号 > 噪音**：只收集经过验证或高潜力的 AI 应用
