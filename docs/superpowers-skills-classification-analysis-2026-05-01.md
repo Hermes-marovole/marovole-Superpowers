@@ -289,22 +289,84 @@ Hermes Atlas (历史分类)
      - `minimax-api` → `inference/minimax-api`
    - 删除了空目录：`inference-sh/` 已移除
 
-3. **移除重叠分类** 待处理
-   - 需要确认 `kanban-orchestrator` 和 `url-to-markdown` 的重叠情况
+3. **移除重叠分类** ✅
+   - 经检查，未发现重叠分类（kanban 和 url-to-markdown 都只存在于单一位置）
 
-### 第二阶段（规划中）
+### 第二阶段（✅ 已完成）
 
-1. **productivity 内部重组**
-   - 需要讨论：如何拆分最合理
-   - 方案：按功能领域 vs 按工作流阶段
+**拆解 productivity/ 分类**（原 20 个技能）
 
-2. **创建 integration 分类**
-   - 整合 mcp/ 和其他工具链接 skill
-   - 如 future的 Skill Factory 插件系统
+创建了 5 个新分类，移动了 16 个技能：
 
-3. **文档化分类策略**
-   - 在 README 中明确分类说明
-   - 提供分类体系图
+| 新分类 | 移入的技能 | 数量 |
+|--------|------------|------|
+| `task-management/` | kanban-orchestrator、kanban-worker、night-research-cron、content-absorption-framework | 4 |
+| `content-publishing/` | md2wechat | 1 |
+| `document-processing/` | nano-pdf、ocr-and-documents、pdf-generation-fallbacks、powerpoint | 4 |
+| `workspace-integration/` | airtable、google-workspace、linear、notion | 4 |
+| `web-automation/` | web-crawler、browser-bookmark-management | 2 |
+
+从 devops/ 移入 task-management/ 的技能：
+- kanban-orchestrator（category 从 devops 改为 task-management）
+- kanban-worker（category 从 devops 改为 task-management）
+
+**productivity/ 保留的核心技能**（4个）：
+- `agent-handoff-document` - Agent 交接文档
+- `link2doc` - 内容整理流程
+- `maps` - 地图工具
+- `marketing-growth-skills` - 营销增长技能库
+
+---
+
+## 最终分类结构
+
+```
+superpowers/
+├─── agent-configuration/          # 原 hermes-agent
+├─── agent-workflow-system/          # 原 hermes-operating-system
+├─── agent-health-check/             # 原 hermes-health-check
+├─── agent-deployment/               # 原 hermes-deployment
+├─── external-tools/               # 新分类
+│   ├─── dokobot
+│   ├─── kami-design-system
+│   └─── yuanbao
+├─── inference/                    # 新分类
+│   ├─── inference-sh-cli
+│   └─── minimax-api
+├─── task-management/              # 新分类
+│   ├─── kanban-orchestrator
+│   ├─── kanban-worker
+│   ├─── night-research-cron
+│   └─── content-absorption-framework
+├─── content-publishing/           # 新分类
+│   └─── md2wechat
+├─── document-processing/          # 新分类
+│   ├─── nano-pdf
+│   ├─── ocr-and-documents
+│   ├─── pdf-generation-fallbacks
+│   └─── powerpoint
+├─── workspace-integration/        # 新分类
+│   ├─── airtable
+│   ├─── google-workspace
+│   ├─── linear
+│   └─── notion
+├─── web-automation/               # 新分类
+│   ├─── web-crawler
+│   └─── browser-bookmark-management
+└─── productivity/               # 精简后
+    ├─── agent-handoff-document
+    ├─── link2doc
+    ├─── maps
+    └─── marketing-growth-skills
+```
+
+### 统计
+
+- **原分类数**: 40+
+- **新分类数**: 44 个（新增 5 个功能分类）
+- **重命名 skills**: 4 个
+- **移动 skills**: 16 个
+- **总技能数**: 120+ 保持不变
 
 ---
 
