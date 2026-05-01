@@ -270,28 +270,27 @@ Hermes Atlas (历史分类)
 
 ## 具体行动建议
 
-### 第一阶段（立即执行）
+### 第一阶段（✅ 已完成）
 
-1. **重命名 hermes-* skills**
-   ```bash
-   # 编辑 SKILL.md 前置数据
-   # 修改 name 字段
-   # 更新所有引用的地方
-   ```
+1. **重命名 hermes-* skills** ✅
+   - `autonomous-ai-agents/hermes-agent` → `agent-configuration`
+   - `autonomous-ai-agents/hermes-operating-system` → `agent-workflow-system`
+   - `devops/hermes-health-check` → `agent-health-check`
+   - `devops/hermes-deployment` → `agent-deployment`
+   - 同步更新了各自 SKILL.md 中的 name 字段
 
-2. **移除重叠分类**
-   ```bash
-   # 从 devops/ 删除 kanban-orchestrator
-   # 从 research/ 删除 url-to-markdown
-   # 确保 canonical path 唯一
-   ```
+2. **合并单一技能分类** ✅
+   - 创建 `external-tools/` 分类，移入：
+     - `dokobot`
+     - `kami-design-system`
+     - `yuanbao`
+   - 创建 `inference/` 分类，移入：
+     - `inference-sh/cli` → `inference/inference-sh-cli`
+     - `minimax-api` → `inference/minimax-api`
+   - 删除了空目录：`inference-sh/` 已移除
 
-3. **合并单一技能分类**
-   ```bash
-   # 创建 external-tools/ 分类
-   # 移入 dokobot, kami-design-system, yuanbao
-   # 合并 inference-sh/ 和 minimax-api 到 inference/
-   ```
+3. **移除重叠分类** 待处理
+   - 需要确认 `kanban-orchestrator` 和 `url-to-markdown` 的重叠情况
 
 ### 第二阶段（规划中）
 
