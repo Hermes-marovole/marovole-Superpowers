@@ -93,9 +93,20 @@ d8b3d6b
 - The largest local categories are creative (28) and software-development (19); both exceed the >15 overcrowding threshold and are candidates for a later Phase 3 refactor.
 - link2doc and dokobot exist in both repo and local, but repo paths/categories are stale versus local post-refactor placement.
 
+## Decision: Repository Policy
+
+User selected **方案 2：Superpowers as content asset library + promoted skills repository**.
+
+Meaning:
+- Do not mirror all active `/Users/marovole/.hermes/skills` into this repository.
+- Treat `/Users/marovole/.hermes/skills` as the live Hermes runtime registry.
+- Keep `repo/skills` for selected promoted skills only.
+- Keep `docs/` as the main repository surface for research, tutorials, tool evaluations, and skill absorption records.
+- README should not claim that this repository contains the full 120+ live skills tree.
+
 ## Recommended next actions
-1. Decide repository policy: mirror all active ~/.hermes/skills into Superpowers, or keep Superpowers mostly as docs plus selected promoted skills.
-2. If mirroring, copy/sync active skill directories from ~/.hermes/skills to repo/skills preserving category paths, then update README links to skills/<category>/<skill>.
-3. If not mirroring, rewrite README to say the complete live skill registry is ~/.hermes/skills and only promoted examples live in repo/skills.
-4. Fix immediate stale repo skills: move skills/dokobot -> skills/external-tools/dokobot and skills/research/link2doc -> skills/productivity/link2doc, or replace them with symlink-free synced copies from local.
-5. Consider Phase 3: split creative and software-development categories.
+1. Keep README aligned with the promoted-skills policy.
+2. When a local skill becomes worth sharing, explicitly promote it into `repo/skills`.
+3. If promoting a skill, preserve a stable path and update README immediately.
+4. Fix immediate stale repo skills only if/when they are promoted under the new policy: `dokobot` can remain a root promoted skill, and `link2doc` can remain under `skills/research/` unless a future promotion policy requires category parity.
+5. Consider Phase 3 for local runtime only: split `creative` and `software-development` categories in `/Users/marovole/.hermes/skills`.
