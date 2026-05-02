@@ -66,6 +66,7 @@ find /Users/marovole/.hermes/skills -name SKILL.md
 | 文档 | 说明 |
 |---|---|
 | [Superpowers Skills Health Map](docs/superpowers-skills-health-map-2026-05-02.md) | 当前 repo 与本地 Hermes skills 的健康检查、差异和后续建议 |
+| [Hermes Skills Phase 3 Local Refactor](docs/hermes-skills-phase3-local-refactor-2026-05-02.md) | 本地 `~/.hermes/skills` 中 creative 与 software-development 拥挤分类拆分记录 |
 | [Superpowers Skills 分类分析](docs/superpowers-skills-classification-analysis-2026-05-01.md) | 2026-05-01 skills 分类重构分析 |
 | [Skills 重构完成报告](docs/REFACTORING_SUMMARY_2026-05-01.md) | `~/.hermes/skills` 分类优化总结 |
 | [Hermes Skill Factory 分析](docs/hermes-skill-factory-analysis-2026-05-01.md) | 自动从工作流生成 skill 的机制研究 |
