@@ -1,0 +1,25 @@
+{
+  "data_inventory": {
+    "weibo_search": 78,
+    "xhs_search": 80,
+    "zhihu_search": 80,
+    "general_search": 60,
+    "xhs_notes_batch1": 18,
+    "xhs_notes_batch2": 19,
+    "zhihu_browser": 32,
+    "weibo_browser": 40,
+    "total_approx": 407
+  },
+  "keyword_counts": {
+    "心理/情绪": 497,
+    "睡眠维持/易醒": 82,
+    "入睡困难": 103,
+    "生活习惯": 309,
+    "药物依赖": 332,
+    "生理副作用": 53,
+    "环境干扰": 87,
+    "中医养生": 67,
+    "营养补充": 504
+  },
+  "total_mentions": 2034
+}
