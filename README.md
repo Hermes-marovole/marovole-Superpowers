@@ -50,6 +50,7 @@ marovole-Superpowers/
 |---|---|---|
 | dokobot | [skills/dokobot/](skills/dokobot/) | 用真实 Chrome 浏览器读取 JS-heavy / login-walled 页面 |
 | link2doc | [skills/research/link2doc/](skills/research/link2doc/) | 从链接/来源整理文档并提交到 GitHub 的内容策展流程 |
+| neumina-lifestyle-course-design | [skills/autonomous-ai-agents/neumina-lifestyle-course-design/](skills/autonomous-ai-agents/neumina-lifestyle-course-design/) | Neumina 14 天生活方式课设计骨架（抗炎→皮质醇等主题迁移） |
 
 完整 live registry 请查看本机：
 
@@ -166,4 +167,4 @@ Superpowers 仓库只保存：
 
 ---
 
-*来自翡冷翠* | 持续更新于 2026-05-02
+*来自翡冷翠* | 持续更新于 2026-09-02
