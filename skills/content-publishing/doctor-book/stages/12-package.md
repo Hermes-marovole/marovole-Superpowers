@@ -1,6 +1,8 @@
 # 阶段 12：package 选题策划书、营销文案、图书封面与章节信息图
 
-目标：写出版社投稿用的选题策划书与营销文案，选定样章，并制作印刷级图书封面与 8–12 幅全彩章节信息图。
+目标：写出版社投稿用的选题策划书与营销文案，选定样章，并基于已通过医学科学性审计的定稿文字制作印刷级图书封面与 8–12 幅全彩章节信息图。
+
+**前置检查（硬门槛）**：进入本阶段绘制封面和章节信息图之前，必须确认阶段 10 的 `08_reviews/scientific_audit.md` 与阶段 11 的后置附录科学性核查已全部完成且 `06_evidence/evidence_bank.md` 已修正——**严禁在未完成科学性审计的情况下提前画图**（避免图内切点、HR、百分比或机制词错误导致整批图片返工）。
 
 先读：`references/proposal-template.md`、`references/visuals-and-cover.md`、`03_positioning/positioning.md`、`04_market/competitors.md`、`05_architecture/outline.md`、`01_materials/material_bank.md` 中的 B 条目。
 

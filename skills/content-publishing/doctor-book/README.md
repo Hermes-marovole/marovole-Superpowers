@@ -15,6 +15,7 @@
 | `references/architecture.md` | 三幕结构（15% / 35% / 50%）、六种章型、概念复现与首尾闭环 |
 | `references/chapter-template.md` | 八拍章节主模板（冷开场→命题转向→背景→机制→证据→案例回收→行动→交接） |
 | `references/compliance-cn.md` | 国内医疗科普出版合规红线（禁绝逆转/根治/停药承诺、相对风险配绝对风险、恐惧词 400 字内给行动出口、CGM 适应证边界等） |
+| `references/scientific-audit.md` | **医学科学性交叉审计指南**（在画图与排版前执行：清查作者论文张冠李戴、HOMA-IR 等公式单位换算、指南切点、试验统计显著性与分子分母、生理药理机制、食药监管边界） |
 | `references/voice-style.md` | 医生口吻量化指标与去 AI 腔规则 |
 | `references/visuals-and-cover.md` | 图书封面（1600×2400）与章节信息图（1400×980）HTML/SVG 渲染、防折行/防裁切及 EPUB/Word 表格防跨页规范 |
 | `references/patterns/` | 8 类写作模式卡片库（开篇、解释、病例、证据、说服、章尾工具、标题、前言结语） |

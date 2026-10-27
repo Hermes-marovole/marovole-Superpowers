@@ -43,9 +43,9 @@ metadata:
 | 7 | evidence | `stages/07-evidence.md` | `06_evidence/evidence_bank.md` | outline 里每个关键论断都有证据条目，每条都有来源、证据等级和绝对风险（适用时） |
 | 8 | briefs | `stages/08-briefs.md` | `05_architecture/briefs/chNN.md` | 每章一份简报，节拍、比喻、病例、证据 ID、可带走物都已指定 |
 | 9 | drafting | `stages/09-drafting.md` | `07_drafts/chNN.md` | 每章 lint 通过（退出码 0） |
-| 10 | review | `stages/10-review.md` | `08_reviews/chNN.md` | 每章审稿各维度 ≥4、合规项满分，修改后 lint 仍通过 |
-| 11 | frontback | `stages/11-frontback.md` | `09_backmatter/*.md` | 前言、结语、附录工具、术语表齐全；`book_stats.py` 退出码 0 |
-| 12 | package | `stages/12-package.md` | `10_package/proposal.md`、`cover.jpg`、`figures/*.png` | 选题策划书与营销文案已填；样章已写入 state；封面与 8–12 幅章节信息图已渲染就绪 |
+| 10 | review | `stages/10-review.md` | `08_reviews/chNN.md`、`scientific_audit.md` | 每章审稿各维度 ≥4、合规满分；**全书医学科学性挑刺审查（6 大高危区）与源头证据库修正已完成**，lint 仍通过 |
+| 11 | frontback | `stages/11-frontback.md` | `09_backmatter/*.md` | 前言、结语、附录工具、术语表齐全并通过科学性核查（含 HOMA-IR 单位防错、用药特异急救等）；`book_stats.py` 退出码 0 |
+| 12 | package | `stages/12-package.md` | `10_package/proposal.md`、`cover.jpg`、`figures/*.png` | 选题策划书与营销文案已填；样章已写入 state；**基于科学审计定稿后的准确数据**渲染封面与 8–12 幅章节信息图 |
 | 13 | assembly | `stages/13-assembly.md` | `book.md`、`book.docx`、`book.epub`、`投稿包.zip` | `render_visuals.py`、`assemble.py`、`export.py`、`audit_book.py` 全数 PASS（0 FAIL），交付报告已写 |
 
 ## 参考库
@@ -56,6 +56,7 @@ metadata:
 - `references/chapter-template.md`：八拍章节模板与章型变体
 - `references/patterns/`：写作模式卡片，按类别分文件（开篇、解释、病例、证据、说服、章尾与工具、标题、前言结语）
 - `references/compliance-cn.md`：国内出版与医疗宣传的合规红线
+- `references/scientific-audit.md`：**全书医学科学性交叉审计指南**（作者论文/标准核对、公式单位防呆、指南切点、试验统计显著性、生理药理机制、食药监管边界——必须在画图与排版前执行）
 - `references/voice-style.md`：文风量化指标与去 AI 腔规则
 - `references/proposal-template.md`：选题策划书模板
 - `references/visuals-and-cover.md`：图书封面（1600×2400）与章节信息图（1400×980）HTML/SVG 渲染规范及防折行/防裁切铁律
