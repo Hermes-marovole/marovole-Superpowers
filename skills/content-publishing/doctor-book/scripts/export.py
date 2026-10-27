@@ -488,6 +488,28 @@ def to_epub(src_md, dst, css_path, cover_path=None):
         os.remove(tmp_epub_md)
 
 
+def audit_epub(epub_path):
+    """Verify EPUB quality: no raw [E0xx] leaks, no empty/stub chapter xhtml files."""
+    with zipfile.ZipFile(epub_path, "r") as z:
+        xhtmls = sorted(n for n in z.namelist() if n.startswith("EPUB/text/ch") and n.endswith(".xhtml"))
+        stub_pages = []
+        e_leaks = []
+        for n in xhtmls:
+            raw = z.read(n).decode("utf-8", errors="ignore")
+            plain = re.sub(r"<[^>]+>", " ", raw)
+            plain = re.sub(r"\s+", " ", plain).strip()
+            leaks = re.findall(r"E0\d\d", plain)
+            if leaks:
+                e_leaks.append((n, leaks))
+            if len(plain) < 120:
+                stub_pages.append((n, len(plain), plain[:60]))
+        if e_leaks:
+            sys.exit(f"EPUB audit FAILED: raw [E0xx] tags leaked in {e_leaks}")
+        if stub_pages:
+            sys.exit(f"EPUB audit FAILED: nearly-empty stub pages (<120 chars) found: {stub_pages}")
+        print(f"EPUB audit PASS: {len(xhtmls)} chapters, 0 stub/blank pages, 0 [E0xx] citation leaks")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("project_dir")
@@ -524,6 +546,7 @@ def main():
             shutil.copy(cpath, os.path.join(sub, "封面" + os.path.splitext(cname)[1]))
             break
     to_epub(book_md, os.path.join(pkg, "book.epub"), epub_css, cover_path=cover_img)
+    audit_epub(os.path.join(pkg, "book.epub"))
     shutil.copy(os.path.join(pkg, "book.epub"), os.path.join(sub, "全书稿.epub"))
 
     proposal = os.path.join(pkg, "proposal.md")
@@ -540,7 +563,7 @@ def main():
     for f in draft_files(proj):
         meta, body = split_front(open(f, encoding="utf-8").read())
         if str(meta.get("chapter")) in samples or str(meta.get("chapter")).lstrip("0") in samples:
-            body = re.sub(r"\[E\d{3,4}\]", "", COMMENT_RE.sub("", body))
+            body = re.sub(r"\[(?:E\d{3,4}(?:\s*[,，、/]\s*)*)+\]", "", COMMENT_RE.sub("", body))
             parts.append(f"# {meta.get('title', '')}\n\n" + body.strip())
     if parts:
         tmp = os.path.join(pkg, "_samples.md")

@@ -47,5 +47,10 @@
    }
    ```
    `assemble.py` 会自动读取 `manifest.json`（或按 `figures/chNN.png` 约定）将配图插入对应章节第一小节末尾。
-5. **EPUB 阅读器防跨栏裁切 CSS**：
-   `export.py` 生成的 `_epub.css` 已内置 `figure { break-inside: avoid; -webkit-column-break-inside: avoid; }` 与 `figure img { max-height: 76vh; width: auto; object-fit: contain; }`，保证在 macOS/iOS Apple「图书（Books）」双栏翻页模式下整图与图注完整同屏显示。
+5. **EPUB 阅读器防跨栏裁切与防空白页铁律**：
+   - `export.py` 生成的 `_epub.css` 已内置 `figure { break-inside: avoid; -webkit-column-break-inside: avoid; }` 与 `figure img { max-height: 76vh; width: auto; object-fit: contain; }`，保证在 macOS/iOS Apple「图书（Books）」双栏翻页模式下整图与图注完整同屏显示。
+   - **严禁在 `_epub.css` 的 `h1` 或 `h2` 上设置 `page-break-before: always`**（因为 `pandoc --split-level=2` 已按章节切分 `.xhtml`，再加 CSS 分页会产生整页空白）。
+   - **卷扉页合并（`.part-banner`）**：`export.py` 的 `to_epub()` 会自动把 `# 第一部分 ...` 等卷标题合并为紧随其后章节顶部的 `.part-banner` 导读横幅卡片，防止产生只有十几个字的独立卷扉空白页。
+   - **前言/结语/附录内部小标题降级**：`assemble.py` 会自动把前言、结语、附录、参考文献内部的二级标题 `##` 降为 `###`，防止 `--split-level=2` 将附录拆成几十个一两百字的碎片页；同时支持将单文献 `[E001]` 与多文献连写 `[E019, E020]` 全部转为上标，并在导出后执行 `audit_epub()` 强制拦截任何 `<120` 字碎片页或 `[E0xx]` 残留。
+6. **交付物版本命名规范**：
+   - 交付给用户的电子书与文档统一使用语义化版本号命名（如 `《书名》_作者_v1.0.epub`、每次迭代直接升版本号 `v1.1`、`v1.2`、`v1.3`……），**严禁使用“正式封面版 / 无空白页终版 / 精排完整版”等累赘后缀**（既保持命名干净，又能避开 Apple 图书对同文件名的缓存）。
