@@ -33,7 +33,7 @@
 ## 三、章节信息图设计规范（`10_package/figures/figNN.html` → `figNN.png`）
 
 1. **数量与分布**：全书至少为 8–12 个核心章节各配 1 幅信息图（涵盖：疾病自然史/分岔口、化验单解读标尺、全书分型总图、各分型核心病理机制对比、餐盘比例与进食顺序、运动剂量与时间窗、地域/人群特色方案、90 天行动路线图）。
-2. **画布尺寸与防裁切铁律（极重要）**：
+- **防溢出铁律**：`.top-bar` 必须使用上下两行堆叠（`display: flex; flex-direction: column; align-items: flex-start; gap: 5px;`），严禁把长标题（`.fig-title`）与长副标题（`.fig-sub`）并排放在同一水平行（1400px 宽度放不下两个长句，会导致右侧副标题超出画布被截断）；所有 Grid 容器的子卡片必须加 `min-width: 0;`。
    - 画布固定为 **`1400px × 980px`**，外层 `.canvas` 使用 `display: flex; flex-direction: column; justify-content: space-between; padding: 36px 48px;`。
    - **严禁给中间内容区（`.main` / `.quad` / `.grid3`）写死会撑破画布的固定像素高度**！中间区域一律使用 `flex: 1; align-items: stretch;`，内部卡片自适应分配高度，确保最底部的“▶ 头号动作”与 `.footer-bar` 100% 完整落在画布内，绝不被截断。
 3. **防 UI 折行铁律**：
