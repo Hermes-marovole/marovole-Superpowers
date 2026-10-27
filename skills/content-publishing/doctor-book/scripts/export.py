@@ -334,6 +334,7 @@ def polish_publication_docx(docx_path, is_full_book=True, chapter_breaks=False, 
             )
             tblPr.append(cell_mar)
 
+        num_rows = len(tbl.rows)
         for r_idx, row in enumerate(tbl.rows):
             trPr = row._tr.get_or_add_trPr()
             cantSplit = OxmlElement("w:cantSplit")
@@ -359,6 +360,10 @@ def polish_publication_docx(docx_path, is_full_book=True, chapter_breaks=False, 
                     cp.paragraph_format.line_spacing = 1.25
                     cp.paragraph_format.space_before = Pt(1)
                     cp.paragraph_format.space_after = Pt(1)
+                    cp.paragraph_format.keep_together = True
+                    # For medium/small tables (<= 9 rows), chain rows with keep_with_next so Word keeps the whole table on one page
+                    if num_rows <= 9 and r_idx < num_rows - 1:
+                        cp.paragraph_format.keep_with_next = True
                     cp.alignment = WD_ALIGN_PARAGRAPH.LEFT
                     for cr in cp.runs:
                         set_east_asia_font(
@@ -388,11 +393,40 @@ h1, h2, h3, h4 {
 }
 h1 { font-size: 1.5em; border-bottom: 2px solid #16324f; padding-bottom: 0.35em; }
 h2 { font-size: 1.28em; border-bottom: 1px solid #cbd5e1; padding-bottom: 0.25em; }
-h3 { font-size: 1.12em; color: #1e3a5f; }
+h3 { font-size: 1.12em; color: #1e3a5f; page-break-after: avoid; break-after: avoid; -webkit-column-break-after: avoid; }
 p { margin: 0.6em 0; text-align: justify; }
-table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.9em; }
-th, td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: left; vertical-align: top; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.75em 0;
+  font-size: 0.84em;
+  line-height: 1.42;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+thead {
+  display: table-header-group;
+  page-break-after: avoid;
+  break-after: avoid;
+  -webkit-column-break-after: avoid;
+}
+tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+th, td {
+  border: 1px solid #cbd5e1;
+  padding: 5px 7px;
+  text-align: left;
+  vertical-align: top;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
 th { background-color: #16324f; color: #ffffff; font-weight: bold; }
+tbody tr:nth-child(even) { background-color: #f8fafc; }
 blockquote { border-left: 3px solid #c87d55; padding-left: 0.9em; color: #475569; margin: 0.8em 0; background: #faf8f3; }
 figure {
   margin: 0.8em auto;
@@ -489,13 +523,19 @@ def to_epub(src_md, dst, css_path, cover_path=None):
 
 
 def audit_epub(epub_path):
-    """Verify EPUB quality: no raw [E0xx] leaks, no empty/stub chapter xhtml files."""
+    """Verify EPUB quality: no raw [E0xx] leaks, no empty/stub chapter xhtml files, and table break-inside protection."""
     with zipfile.ZipFile(epub_path, "r") as z:
+        css_files = [n for n in z.namelist() if n.endswith(".css")]
+        css_blob = "\n".join(z.read(c).decode("utf-8", errors="ignore") for c in css_files)
+        if "-webkit-column-break-inside: avoid" not in css_blob or "break-inside: avoid" not in css_blob:
+            sys.exit("EPUB audit FAILED: CSS missing table/figure break-inside: avoid rules")
         xhtmls = sorted(n for n in z.namelist() if n.startswith("EPUB/text/ch") and n.endswith(".xhtml"))
         stub_pages = []
         e_leaks = []
+        tbl_count = 0
         for n in xhtmls:
             raw = z.read(n).decode("utf-8", errors="ignore")
+            tbl_count += len(re.findall(r"<table\b", raw))
             plain = re.sub(r"<[^>]+>", " ", raw)
             plain = re.sub(r"\s+", " ", plain).strip()
             leaks = re.findall(r"E0\d\d", plain)
@@ -507,7 +547,7 @@ def audit_epub(epub_path):
             sys.exit(f"EPUB audit FAILED: raw [E0xx] tags leaked in {e_leaks}")
         if stub_pages:
             sys.exit(f"EPUB audit FAILED: nearly-empty stub pages (<120 chars) found: {stub_pages}")
-        print(f"EPUB audit PASS: {len(xhtmls)} chapters, 0 stub/blank pages, 0 [E0xx] citation leaks")
+        print(f"EPUB audit PASS: {len(xhtmls)} chapters, {tbl_count} tables protected against page-split, 0 stub/blank pages, 0 [E0xx] citation leaks")
 
 
 def main():

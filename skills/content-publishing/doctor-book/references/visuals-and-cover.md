@@ -48,7 +48,7 @@
    ```
    `assemble.py` 会自动读取 `manifest.json`（或按 `figures/chNN.png` 约定）将配图插入对应章节第一小节末尾。
 5. **EPUB 阅读器防跨栏裁切与防空白页铁律**：
-   - `export.py` 生成的 `_epub.css` 已内置 `figure { break-inside: avoid; -webkit-column-break-inside: avoid; }` 与 `figure img { max-height: 76vh; width: auto; object-fit: contain; }`，保证在 macOS/iOS Apple「图书（Books）」双栏翻页模式下整图与图注完整同屏显示。
+   - `export.py` 生成的 `_epub.css` 已内置 `figure, table, tr, th, td { page-break-inside: avoid; break-inside: avoid; -webkit-column-break-inside: avoid; }` 与 `figure img { max-height: 76vh; width: auto; object-fit: contain; }`，保证在 macOS/iOS Apple「图书（Books）」双栏翻页模式下整图与整张表格完整同屏显示，不被拦腰截断；Word 导出器同样对 `≤9` 行的中短表格自动开启行间 `keep_with_next` 锁页。
    - **严禁在 `_epub.css` 的 `h1` 或 `h2` 上设置 `page-break-before: always`**（因为 `pandoc --split-level=2` 已按章节切分 `.xhtml`，再加 CSS 分页会产生整页空白）。
    - **卷扉页合并（`.part-banner`）**：`export.py` 的 `to_epub()` 会自动把 `# 第一部分 ...` 等卷标题合并为紧随其后章节顶部的 `.part-banner` 导读横幅卡片，防止产生只有十几个字的独立卷扉空白页。
    - **前言/结语/附录内部小标题降级**：`assemble.py` 会自动把前言、结语、附录、参考文献内部的二级标题 `##` 降为 `###`，防止 `--split-level=2` 将附录拆成几十个一两百字的碎片页；同时支持将单文献 `[E001]` 与多文献连写 `[E019, E020]` 全部转为上标，并在导出后执行 `audit_epub()` 强制拦截任何 `<120` 字碎片页或 `[E0xx]` 残留。
