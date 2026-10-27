@@ -70,9 +70,10 @@ def main():
                     porder.append(eid)
                 return f"^\\[{porder.index(eid) + 1}\\]^"
             pbody = re.sub(r"\[(E\d{3,4})\]", prepl, pbody)
+            pbody = re.sub(r"^(#{2,5})(?=\s)", lambda m: "#" * min(6, len(m.group(1)) + 1), pbody, flags=re.M)
             out.append(pbody + "\n")
             if porder:
-                notes_md.append("## 前言\n")
+                notes_md.append("### 前言\n")
                 for i, eid in enumerate(porder, 1):
                     notes_md.append(f"{i}. {sources.get(eid, '（证据库中缺少 ' + eid + '）')}")
                 notes_md.append("")
@@ -97,7 +98,13 @@ def main():
     for f, meta, body in drafts:
         part = meta.get("part")
         if part and part != current_part:
-            out.append(f"# {part}\n")
+            PART_SUB = {
+                "第一部分 问题与框架": ("PART I · PROBLEM & FRAMEWORK", "看懂体检单上的黄灯信号，在分岔匝道握紧方向盘，用“糖前四型”锁定你的代谢故障"),
+                "第二部分 机制与类型": ("PART II · MECHANISMS & PHENOTYPES", "瞄准三项达标的“缓解线”，逐一拆解抵抗型、分泌型、肌少型与肝脂型的破局关键"),
+                "第三部分 方法与工具": ("PART III · METHODS & 90-DAY PLAN", "从 14 天“升糖人设”摸底、211 餐盘配对、肌肉降糖处方、寒地吃法到 90 天闭环作战图"),
+            }
+            en_k, cn_s = PART_SUB.get(part, ("PART", "临床营养精准干预实践路径"))
+            out.append(f"# {part}\n\n> **{en_k}**\n>\n> {cn_s}\n")
             current_part = part
         raw_title = meta.get("title", os.path.basename(f))
         ch_num = str(meta.get("chapter", "")).strip()
@@ -157,7 +164,7 @@ def main():
 
         out.append("#" * ch_level + f" {heading}\n\n" + body + "\n")
         if order:
-            notes_md.append(f"## {heading}\n")
+            notes_md.append(f"### {heading}\n")
             for i, eid in enumerate(order, 1):
                 notes_md.append(f"{i}. {sources.get(eid, '（证据库中缺少 ' + eid + '）')}")
             notes_md.append("")
@@ -182,10 +189,11 @@ def main():
                         border.append(eid)
                     return f"^\\[{border.index(eid) + 1}\\]^"
                 bbody = re.sub(r"\[(E\d{3,4})\]", brepl, bbody)
+                bbody = re.sub(r"^(#{2,5})(?=\s)", lambda m: "#" * min(6, len(m.group(1)) + 1), bbody, flags=re.M)
                 out.append(bbody + "\n")
                 if border:
                     btitle = bmeta.get("title") or fn.replace(".md", "")
-                    notes_md.append(f"## {btitle}\n")
+                    notes_md.append(f"### {btitle}\n")
                     for i, eid in enumerate(border, 1):
                         notes_md.append(f"{i}. {sources.get(eid, '（证据库中缺少 ' + eid + '）')}")
                     notes_md.append("")

@@ -260,6 +260,16 @@ def polish_publication_docx(docx_path, is_full_book=True, chapter_breaks=False, 
                 for r in p.runs:
                     r.font.size = Pt(12.5)
 
+        elif sname == "Heading 3":
+            if in_references:
+                p.paragraph_format.space_before = Pt(10)
+                p.paragraph_format.space_after = Pt(4)
+                for r in p.runs:
+                    set_east_asia_font(r, "黑体", size_pt=11.0, bold=True, color_hex="1E3A5F")
+            else:
+                p.paragraph_format.space_before = Pt(14)
+                p.paragraph_format.space_after = Pt(6)
+
         elif sname == "Captioned Figure" or sname == "Image Caption" or (txt.startswith("图 ") and len(txt) < 65):
             p.paragraph_format.first_line_indent = Pt(0)
             p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -372,18 +382,18 @@ def build_epub_css(path):
 h1, h2, h3, h4 {
   font-family: "PingFang SC", "Heiti SC", "STHeiti", sans-serif;
   line-height: 1.35;
-  margin-top: 1.4em;
+  margin-top: 1.2em;
   margin-bottom: 0.6em;
-  color: #111;
+  color: #13293d;
 }
-h1 { font-size: 1.5em; border-bottom: 1px solid #ddd; padding-bottom: 0.3em; page-break-before: always; }
-h2 { font-size: 1.25em; page-break-before: always; }
-h3 { font-size: 1.1em; }
+h1 { font-size: 1.5em; border-bottom: 2px solid #16324f; padding-bottom: 0.35em; }
+h2 { font-size: 1.28em; border-bottom: 1px solid #cbd5e1; padding-bottom: 0.25em; }
+h3 { font-size: 1.12em; color: #1e3a5f; }
 p { margin: 0.6em 0; text-align: justify; }
 table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.9em; }
-th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; vertical-align: top; }
-th { background-color: #f4f6f8; font-weight: bold; }
-blockquote { border-left: 3px solid #6b7280; padding-left: 0.9em; color: #4b5563; margin: 0.8em 0; }
+th, td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background-color: #16324f; color: #ffffff; font-weight: bold; }
+blockquote { border-left: 3px solid #c87d55; padding-left: 0.9em; color: #475569; margin: 0.8em 0; background: #faf8f3; }
 figure {
   margin: 0.8em auto;
   text-align: center;
