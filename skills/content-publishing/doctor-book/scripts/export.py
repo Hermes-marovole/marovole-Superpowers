@@ -523,19 +523,31 @@ def to_epub(src_md, dst, css_path, cover_path=None):
 
 
 def audit_epub(epub_path):
-    """Verify EPUB quality: no raw [E0xx] leaks, no empty/stub chapter xhtml files, and table break-inside protection."""
+    """Verify EPUB quality: XML well-formedness, no raw [E0xx] leaks, no stub pages, no >5-col or empty-cell tables."""
+    import xml.etree.ElementTree as ET
     with zipfile.ZipFile(epub_path, "r") as z:
         css_files = [n for n in z.namelist() if n.endswith(".css")]
         css_blob = "\n".join(z.read(c).decode("utf-8", errors="ignore") for c in css_files)
         if "-webkit-column-break-inside: avoid" not in css_blob or "break-inside: avoid" not in css_blob:
             sys.exit("EPUB audit FAILED: CSS missing table/figure break-inside: avoid rules")
-        xhtmls = sorted(n for n in z.namelist() if n.startswith("EPUB/text/ch") and n.endswith(".xhtml"))
-        stub_pages = []
-        e_leaks = []
+        xhtmls = sorted(n for n in z.namelist() if (n.endswith(".xhtml") or n.endswith(".html")))
+        stub_pages, e_leaks, xml_errs, bad_tables = [], [], [], []
         tbl_count = 0
         for n in xhtmls:
             raw = z.read(n).decode("utf-8", errors="ignore")
-            tbl_count += len(re.findall(r"<table\b", raw))
+            try:
+                ET.fromstring(raw)
+            except Exception as ex:
+                xml_errs.append((n, str(ex)))
+            if not n.startswith("EPUB/text/ch"):
+                continue
+            for t_idx, t in enumerate(re.findall(r"<table[\s\S]*?</table>", raw), 1):
+                tbl_count += 1
+                rows = re.findall(r"<tr[\s\S]*?</tr>", t)
+                cols = len(re.findall(r"<t[hd][\s\S]*?</t[hd]>", rows[0])) if rows else 0
+                empty_cells = sum(1 for c in re.findall(r"<td[\s\S]*?</td>", t) if not re.sub(r"<[^>]+>", "", c).strip())
+                if cols > 5 or len(rows) > 9 or empty_cells > 0:
+                    bad_tables.append((n, f"tbl#{t_idx}", f"rows={len(rows)}", f"cols={cols}", f"empty_cells={empty_cells}"))
             plain = re.sub(r"<[^>]+>", " ", raw)
             plain = re.sub(r"\s+", " ", plain).strip()
             leaks = re.findall(r"E0\d\d", plain)
@@ -543,11 +555,15 @@ def audit_epub(epub_path):
                 e_leaks.append((n, leaks))
             if len(plain) < 120:
                 stub_pages.append((n, len(plain), plain[:60]))
+        if xml_errs:
+            sys.exit(f"EPUB audit FAILED: XML/XHTML syntax errors in {xml_errs}")
         if e_leaks:
             sys.exit(f"EPUB audit FAILED: raw [E0xx] tags leaked in {e_leaks}")
         if stub_pages:
             sys.exit(f"EPUB audit FAILED: nearly-empty stub pages (<120 chars) found: {stub_pages}")
-        print(f"EPUB audit PASS: {len(xhtmls)} chapters, {tbl_count} tables protected against page-split, 0 stub/blank pages, 0 [E0xx] citation leaks")
+        if bad_tables:
+            sys.exit(f"EPUB audit FAILED: oversized (>9 rows or >5 cols) or blank-cell tables found: {bad_tables}")
+        print(f"EPUB audit PASS: {len(xhtmls)} XHTML files 100% XML-valid, {tbl_count} tables (all <=9 rows, <=5 cols, 0 blank cells), 0 stub pages, 0 [E0xx] leaks")
 
 
 def main():

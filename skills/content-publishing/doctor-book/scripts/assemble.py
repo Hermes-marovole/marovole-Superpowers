@@ -210,6 +210,9 @@ def main():
     pkg = os.path.join(proj, "10_package")
     os.makedirs(pkg, exist_ok=True)
     book = "\n\n".join(out)
+    # Sanitize unclosed HTML tags (e.g. `<br>` or `<hr>`) so XHTML/EPUB parsers never fail with tag mismatch
+    book = re.sub(r"<br\s*>", "；", book, flags=re.I)
+    book = re.sub(r"<hr\s*>", "---", book, flags=re.I)
     open(os.path.join(pkg, "book.md"), "w", encoding="utf-8").write(book)
     open(os.path.join(pkg, "verify_list.md"), "w", encoding="utf-8").write("\n".join(verify) + "\n")
 
