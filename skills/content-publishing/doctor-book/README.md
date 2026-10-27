@@ -25,6 +25,7 @@
 | `scripts/render_visuals.py` | 调用 Headless Chrome 将 `cover.html` 与 `figures/*.html` 批量渲染为高清封面与章节配图 |
 | `scripts/assemble.py` | 组装 `book.md`（自动将 `[E0xx]` 单/多文献引文转为上标 `^[1,2]^`、自动注入章节信息图、自动降级前言/附录内部小标题防碎片切页） |
 | `scripts/export.py` | 导出 16 开出版级 `book.docx`、带封面与防跨栏裁切/表格防跨页的 `book.epub`（内置 `audit_epub()` 门禁）及 `投稿包.zip` |
+| `scripts/audit_book.py` | 全书端到端 Debug 与质量审计门禁（扫描 `book.md`、封面/插图尺寸与防折行、EPUB 严格 XML 解析、残页/空白页、`[E0xx]` 泄露、表格行列几何与空单元格、Word 16 开 DOM） |
 | `scripts/selftest.py` | `lint_chapter.py` 的 12 项回归自测套件 |
 
 ---

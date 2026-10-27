@@ -46,7 +46,7 @@ metadata:
 | 10 | review | `stages/10-review.md` | `08_reviews/chNN.md` | 每章审稿各维度 ≥4、合规项满分，修改后 lint 仍通过 |
 | 11 | frontback | `stages/11-frontback.md` | `09_backmatter/*.md` | 前言、结语、附录工具、术语表齐全；`book_stats.py` 退出码 0 |
 | 12 | package | `stages/12-package.md` | `10_package/proposal.md`、`cover.jpg`、`figures/*.png` | 选题策划书与营销文案已填；样章已写入 state；封面与 8–12 幅章节信息图已渲染就绪 |
-| 13 | assembly | `stages/13-assembly.md` | `book.md`、`book.docx`、`book.epub`、`投稿包.zip` | `assemble.py` 和 `export.py` 都成功（含出版级 Word 排版与带封面/配图的 EPUB），交付报告已写 |
+| 13 | assembly | `stages/13-assembly.md` | `book.md`、`book.docx`、`book.epub`、`投稿包.zip` | `render_visuals.py`、`assemble.py`、`export.py`、`audit_book.py` 全数 PASS（0 FAIL），交付报告已写 |
 
 ## 参考库
 
