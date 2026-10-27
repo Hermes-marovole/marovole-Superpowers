@@ -1,0 +1,406 @@
+{
+  "_note": "Calibrated from analysis/fine/*_metrics.md (Outlive, 好能量, 营养圣经). The source books are Chinese translations with long sentences, so sentence ranges are shifted shorter for original Chinese prose. Ranges are [min, max].",
+  "types": {
+    "argument": {
+      "para_median": [
+        80,
+        160
+      ],
+      "sent_median": [
+        18,
+        36
+      ],
+      "headings_per_k": [
+        0.15,
+        1.2
+      ],
+      "questions_per_k": [
+        0.3,
+        2.5
+      ],
+      "first_person_per_k": [
+        6,
+        25
+      ],
+      "second_person_per_k": [
+        2,
+        10
+      ],
+      "numbers_per_k": [
+        2.5,
+        12
+      ],
+      "research_per_k": [
+        1,
+        6
+      ],
+      "max_takeaway_gap": 1800,
+      "ending_list_required": false,
+      "redflag_required": false
+    },
+    "disease": {
+      "para_median": [
+        80,
+        160
+      ],
+      "sent_median": [
+        18,
+        36
+      ],
+      "headings_per_k": [
+        0.2,
+        1.5
+      ],
+      "questions_per_k": [
+        0.3,
+        2
+      ],
+      "first_person_per_k": [
+        5,
+        20
+      ],
+      "second_person_per_k": [
+        1,
+        9
+      ],
+      "numbers_per_k": [
+        4,
+        16
+      ],
+      "research_per_k": [
+        2,
+        8
+      ],
+      "max_takeaway_gap": 1500,
+      "ending_list_required": true,
+      "redflag_required": true
+    },
+    "tactic": {
+      "para_median": [
+        50,
+        140
+      ],
+      "sent_median": [
+        16,
+        34
+      ],
+      "headings_per_k": [
+        0.3,
+        2.5
+      ],
+      "questions_per_k": [
+        0.3,
+        2.5
+      ],
+      "first_person_per_k": [
+        3,
+        22
+      ],
+      "second_person_per_k": [
+        4,
+        14
+      ],
+      "numbers_per_k": [
+        6,
+        18
+      ],
+      "research_per_k": [
+        0.5,
+        5
+      ],
+      "max_takeaway_gap": 1200,
+      "ending_list_required": true,
+      "redflag_required": true
+    },
+    "bridge": {
+      "para_median": [
+        60,
+        140
+      ],
+      "sent_median": [
+        16,
+        34
+      ],
+      "headings_per_k": [
+        0,
+        1
+      ],
+      "questions_per_k": [
+        1,
+        3.5
+      ],
+      "first_person_per_k": [
+        12,
+        40
+      ],
+      "second_person_per_k": [
+        2,
+        10
+      ],
+      "numbers_per_k": [
+        1,
+        8
+      ],
+      "research_per_k": [
+        0,
+        3
+      ],
+      "max_takeaway_gap": 2000,
+      "ending_list_required": false,
+      "redflag_required": false
+    },
+    "essay": {
+      "para_median": [
+        70,
+        160
+      ],
+      "sent_median": [
+        16,
+        36
+      ],
+      "headings_per_k": [
+        0,
+        0.6
+      ],
+      "questions_per_k": [
+        0.5,
+        3.5
+      ],
+      "first_person_per_k": [
+        15,
+        55
+      ],
+      "second_person_per_k": [
+        1,
+        10
+      ],
+      "numbers_per_k": [
+        0,
+        6
+      ],
+      "research_per_k": [
+        0,
+        2
+      ],
+      "max_takeaway_gap": 3000,
+      "ending_list_required": false,
+      "redflag_required": false
+    },
+    "plan": {
+      "para_median": [
+        15,
+        60
+      ],
+      "sent_median": [
+        8,
+        32
+      ],
+      "headings_per_k": [
+        0.8,
+        4
+      ],
+      "questions_per_k": [
+        0,
+        4
+      ],
+      "first_person_per_k": [
+        0,
+        12
+      ],
+      "second_person_per_k": [
+        5,
+        25
+      ],
+      "numbers_per_k": [
+        8,
+        60
+      ],
+      "research_per_k": [
+        0,
+        2
+      ],
+      "max_takeaway_gap": 800,
+      "ending_list_required": true,
+      "redflag_required": true
+    }
+  },
+  "long_sentence_chars": 45,
+  "long_sentence_max_share": 0.2,
+  "exclamations_max_per_k": 0.3,
+  "banned_hard": [
+    "无副作用",
+    "零副作用",
+    "无任何副作用",
+    "神药",
+    "特效药",
+    "秘方",
+    "祖传",
+    "医生不会告诉你",
+    "别信医生",
+    "不要相信医生",
+    "医院不想让你知道",
+    "医院治不好",
+    "立竿见影",
+    "排毒",
+    "100%有效",
+    "百分之百有效",
+    "不用吃药",
+    "别吃药",
+    "可以停药",
+    "抗癌食物",
+    "治愈率",
+    "上限过时",
+    "监管保守"
+  ],
+  "medication_change_terms": [
+    "停药",
+    "减药",
+    "换药",
+    "自行调整剂量",
+    "停用",
+    "减量",
+    "不再服用"
+  ],
+  "medication_guard_terms": [
+    "医生",
+    "医师",
+    "遵医嘱",
+    "复诊",
+    "就诊"
+  ],
+  "research_terms": [
+    "研究显示",
+    "研究发现",
+    "研究表明",
+    "数据显示",
+    "试验发现",
+    "试验表明",
+    "荟萃分析",
+    "统计显示",
+    "调查显示",
+    "一项研究",
+    "研究人员发现"
+  ],
+  "research_count_regex": "研究|试验|指南|共识|荟萃|Meta|队列",
+  "absolute_risk_terms": [
+    "每1000",
+    "每 1000",
+    "每千人",
+    "每100",
+    "每 100",
+    "每百人",
+    "绝对风险",
+    "需治疗人数",
+    "NNT",
+    "个百分点",
+    "人中",
+    "每 1,000",
+    "每万人",
+    "每10000"
+  ],
+  "fear_regex": "死亡|癌症|卒中|中风|痴呆|失明|截肢|猝死|瘫痪|透析",
+  "action_regex": "你可以|可以先|试试|建议|今天|今晚|明天|下次|下一次|记下|去医院|就诊|挂号|^\\s*(?:[-*+]|\\d+[.、)])\\s",
+  "fear_action_window": 400,
+  "redflag_regex": "就医|急诊|120|立即去医院|马上去医院|尽快就诊|挂号|转诊",
+  "dose_regex": "\\d+(?:\\.\\d+)?\\s*(?:mg|毫克|μg|微克|IU|国际单位|mL|毫升)",
+  "contraindication_regex": "禁忌|慎用|禁用|相互作用|不适合|需医生评估",
+  "score_regex": "得分|分数|评分|总分",
+  "child_scaling_regex": "(?:儿童|小儿|孩子)[^。]{0,40}(?:折算|减半|一半|按体重)|(?:折算|减半|按体重)[^。]{0,40}(?:儿童|小儿|孩子)",
+  "bridge_regex": "下一章|接下来|下一步|后面|下一部分",
+  "ai_flavour": [
+    "值得注意的是",
+    "总而言之",
+    "综上所述",
+    "在当今社会",
+    "随着社会的发展",
+    "不可否认",
+    "众所周知",
+    "让我们一起",
+    "深入探讨",
+    "赋能",
+    "助力",
+    "至关重要",
+    "不言而喻",
+    "毋庸置疑",
+    "总的来说",
+    "在这个快节奏的时代",
+    "不仅仅是",
+    "扮演着重要的角色",
+    "打开了一扇窗",
+    "首先，",
+    "其次，",
+    "再次，",
+    "最后，",
+    "首先,",
+    "其次,"
+  ],
+  "ai_flavour_max_per_k": 0.8,
+  "summary_endings": [
+    "总之",
+    "综上所述",
+    "本章小结",
+    "总而言之",
+    "总的来说",
+    "本章我们学习了",
+    "这一章我们了解了"
+  ],
+  "definition_openings": [
+    "所谓",
+    "是指",
+    "的定义",
+    "顾名思义",
+    "是一种"
+  ],
+  "case_disclosure": [
+    "情景示例",
+    "复合案例",
+    "化名",
+    "细节已做改动"
+  ],
+  "book": {
+    "chapters": [
+      10,
+      14
+    ],
+    "last_part_share": [
+      0.45,
+      0.58
+    ],
+    "first_part_share": [
+      0.12,
+      0.2
+    ],
+    "max_chapter_share": 0.15,
+    "min_chapter_chars": 2500,
+    "disclaimer_regex": "不能代替|不能替代|不替代|不能取代|遵医嘱|请咨询医生|咨询你的医生|和医生商量|与医生商量|在医生指导下",
+    "disclaimer_min": 3
+  },
+  "banned_claims": [
+    "根治",
+    "治愈",
+    "包治",
+    "彻底治愈",
+    "永不复发",
+    "最安全",
+    "最有效",
+    "保证有效",
+    "保证治好",
+    "一定能治好",
+    "逆转衰老",
+    "逆转糖尿病",
+    "逆转癌症",
+    "替代药物",
+    "代替药物",
+    "取代药物",
+    "替代治疗方案",
+    "不再需要吃药"
+  ],
+  "negation_regex": "不|没|无|非|别|勿|未|难以|无法",
+  "pill_count_regex": "(?:吃|服|服用|口服|含服|嚼)\\s*(?:\\d+|[一两二三四五六七八九十半]+)\\s*(?:片|粒|袋|支|丸|颗)(?!面包|吐司|饼干|西瓜|苹果|橙|肉|菜|姜|柠檬|饼|蛋糕|面)",
+  "age_regex": "\\d{1,3}\\s*(?:多)?岁|[二三四五六七八九]十(?:多|几|来)?岁|[一二三四五六七八九]十出头",
+  "case_marker_regex": "患者|病人|先生|女士|阿姨|大爷|老伯|小伙|姑娘|老[王李张刘陈杨黄赵周吴徐孙马朱胡郭何高林罗郑梁宋谢唐韩冯邓曹彭曾萧田董潘袁蔡蒋余于杜叶程魏苏吕丁任沈姚卢姜崔钟谭陆汪范金石廖贾夏韦付方白邹孟熊秦邱江尹薛闫段雷侯龙史陶黎贺顾毛郝龚邵万钱严覃武戴莫孔向汤]|小[王李张刘陈杨黄赵周吴徐孙马朱胡郭何高林罗郑梁]",
+  "contrast_regex": "不是[^。！？\\n]{1,25}?(?:而是|，是)",
+  "contrast_max_per_k": 0.8,
+  "scaffold_regex": "第[一二三四五][，,、：:]",
+  "scaffold_max": 6
+}
