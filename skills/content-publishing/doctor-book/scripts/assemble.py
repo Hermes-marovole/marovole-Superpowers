@@ -63,13 +63,18 @@ def main():
         f = os.path.join(back, name + ".md")
         if os.path.exists(f):
             pbody = split_front(read(f))[1].strip()
+            def _replace_eids(text, order_list):
+                def _repl(m):
+                    nums = []
+                    for eid in re.findall(r"E\d{3,4}", m.group(1)):
+                        if eid not in order_list:
+                            order_list.append(eid)
+                        nums.append(str(order_list.index(eid) + 1))
+                    return f"^\\[{','.join(nums)}\\]^"
+                return re.sub(r"\[((?:E\d{3,4}(?:\s*[,，、/]\s*)*)+)\]", _repl, text)
+
             porder = []
-            def prepl(m):
-                eid = m.group(1)
-                if eid not in porder:
-                    porder.append(eid)
-                return f"^\\[{porder.index(eid) + 1}\\]^"
-            pbody = re.sub(r"\[(E\d{3,4})\]", prepl, pbody)
+            pbody = _replace_eids(pbody, porder)
             pbody = re.sub(r"^(#{2,5})(?=\s)", lambda m: "#" * min(6, len(m.group(1)) + 1), pbody, flags=re.M)
             out.append(pbody + "\n")
             if porder:
@@ -128,12 +133,13 @@ def main():
         body = re.sub(r"^(#{2,5})(?=\s)", lambda m: "#" * min(6, len(m.group(1)) + shift), body, flags=re.M)
         order = []
         def repl(m):
-            eid = m.group(1)
-            if eid not in order:
-                order.append(eid)
-            # Escaped brackets: bare ^[...] is pandoc inline-footnote syntax.
-            return f"^\\[{order.index(eid) + 1}\\]^"
-        body = re.sub(r"\[(E\d{3,4})\]", repl, body)
+            nums = []
+            for eid in re.findall(r"E\d{3,4}", m.group(1)):
+                if eid not in order:
+                    order.append(eid)
+                nums.append(str(order.index(eid) + 1))
+            return f"^\\[{','.join(nums)}\\]^"
+        body = re.sub(r"\[((?:E\d{3,4}(?:\s*[,，、/]\s*)*)+)\]", repl, body)
 
         # Inject chapter infographic figure if present in 10_package/figures/
         # Priority: 1) 10_package/figures/manifest.json ({ "01": {"file": "figures/ch01.png", "caption": "图 1-1 ..."}, ... })
@@ -184,11 +190,13 @@ def main():
                 bbody = bbody.strip()
                 border = []
                 def brepl(m):
-                    eid = m.group(1)
-                    if eid not in border:
-                        border.append(eid)
-                    return f"^\\[{border.index(eid) + 1}\\]^"
-                bbody = re.sub(r"\[(E\d{3,4})\]", brepl, bbody)
+                    nums = []
+                    for eid in re.findall(r"E\d{3,4}", m.group(1)):
+                        if eid not in border:
+                            border.append(eid)
+                        nums.append(str(border.index(eid) + 1))
+                    return f"^\\[{','.join(nums)}\\]^"
+                bbody = re.sub(r"\[((?:E\d{3,4}(?:\s*[,，、/]\s*)*)+)\]", brepl, bbody)
                 bbody = re.sub(r"^(#{2,5})(?=\s)", lambda m: "#" * min(6, len(m.group(1)) + 1), bbody, flags=re.M)
                 out.append(bbody + "\n")
                 if border:

@@ -422,6 +422,26 @@ figcaption {
   page-break-before: avoid;
   break-before: avoid;
 }
+.part-banner {
+  background: #16324f;
+  color: #ffffff;
+  padding: 0.7em 1em;
+  border-radius: 6px;
+  border-left: 5px solid #c87d55;
+  margin: 0.4em 0 1em 0;
+}
+.part-banner-title {
+  font-weight: bold;
+  font-size: 1.05em;
+  letter-spacing: 0.05em;
+  color: #fde68a;
+}
+.part-banner-sub {
+  font-size: 0.85em;
+  color: #e2e8f0;
+  margin-top: 0.25em;
+  line-height: 1.45;
+}
 """
     open(path, "w", encoding="utf-8").write(css)
     return path
@@ -429,8 +449,34 @@ figcaption {
 
 def to_epub(src_md, dst, css_path, cover_path=None):
     src_dir = os.path.dirname(os.path.abspath(src_md))
+    # For EPUB, merge part-header blocks (`# 第一部分 ...` + part intro quote) directly into
+    # the top of the immediately following chapter so pandoc `--split-level=2` doesn't emit
+    # standalone nearly-empty part-divider pages (`ch002.xhtml`, `ch006.xhtml`, `ch012.xhtml`).
+    raw_md = open(src_md, encoding="utf-8").read()
+    def _merge_part_into_chapter(m):
+        part_title = m.group(1).strip()
+        part_quote = (m.group(2) or "").strip()
+        ch_heading = m.group(3).strip()
+        q_lines = [ln.lstrip(">").strip() for ln in part_quote.splitlines() if ln.strip()]
+        sub_txt = " · ".join(q_lines) if q_lines else ""
+        banner = (
+            f'<div class="part-banner">'
+            f'<div class="part-banner-title">{part_title}</div>'
+            + (f'<div class="part-banner-sub">{sub_txt}</div>' if sub_txt else "")
+            + f'</div>'
+        )
+        return f"## {ch_heading}\n\n{banner}\n"
+
+    epub_md_text = re.sub(
+        r"^#\s+(第[一二三四五六七八九十]+部分[^\n]*)\n+((?:>[^\n]*\n)+)?\s*##\s+([^\n]+)",
+        _merge_part_into_chapter,
+        raw_md,
+        flags=re.M,
+    )
+    tmp_epub_md = os.path.join(src_dir, "_book_epub.md")
+    open(tmp_epub_md, "w", encoding="utf-8").write(epub_md_text)
     cmd = [
-        "pandoc", src_md, "-o", dst,
+        "pandoc", tmp_epub_md, "-o", dst,
         "--toc", "--toc-depth=2", "--split-level=2",
         f"--css={css_path}", f"--resource-path={src_dir}",
         "-M", "toc-title=目录", "--quiet",
@@ -438,6 +484,8 @@ def to_epub(src_md, dst, css_path, cover_path=None):
     if cover_path and os.path.exists(cover_path):
         cmd.append(f"--epub-cover-image={cover_path}")
     subprocess.run(cmd, check=True)
+    if os.path.exists(tmp_epub_md):
+        os.remove(tmp_epub_md)
 
 
 def main():
