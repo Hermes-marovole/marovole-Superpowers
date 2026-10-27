@@ -522,6 +522,95 @@ def to_epub(src_md, dst, css_path, cover_path=None):
         os.remove(tmp_epub_md)
 
 
+def to_pdf(src_md, dst_pdf, cover_path=None, book_title="书稿"):
+    """Export mobile-friendly full-color PDF (`148mm x 218mm`) with full-bleed cover, 1-page TOC, and chapter figures via Headless Chrome."""
+    chrome = None
+    for c in ("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", shutil.which("google-chrome"), shutil.which("chromium")):
+        if c and os.path.exists(c):
+            chrome = c
+            break
+    if not chrome:
+        print("warning: Chrome not found; skipping PDF export", file=sys.stderr)
+        return False
+
+    src_dir = os.path.dirname(os.path.abspath(src_md))
+    raw_md = open(src_md, encoding="utf-8").read()
+    toc_items = []
+    for m in re.finditer(r"^(#{1,2})\s+(.+)$", raw_md, flags=re.M):
+        title = m.group(2).strip()
+        if re.match(r"^第[一二三四五六七八九十]+部分", title):
+            toc_items.append(f'<li class="toc-part">{title}</li>')
+        else:
+            toc_items.append(f'<li class="toc-ch">• {title}</li>')
+    toc_html = '<div class="toc-page"><div class="toc-title">目  录</div><ul class="toc-list">' + "\n".join(toc_items) + "</ul></div>"
+
+    def _merge_part_into_chapter(m):
+        part_title = m.group(1).strip()
+        part_quote = (m.group(2) or "").strip()
+        ch_heading = m.group(3).strip()
+        q_lines = [ln.lstrip(">").strip() for ln in part_quote.splitlines() if ln.strip()]
+        sub_txt = " · ".join(q_lines) if q_lines else ""
+        banner = (
+            f'<div class="part-banner"><div class="part-banner-title">{part_title}</div>'
+            + (f'<div class="part-banner-sub">{sub_txt}</div>' if sub_txt else "")
+            + "</div>"
+        )
+        return f"## {ch_heading}\n\n{banner}\n"
+
+    pdf_md = re.sub(
+        r"^#\s+(第[一二三四五六七八九十]+部分[^\n]*)\n+((?:>[^\n]*\n)+)?\s*##\s+([^\n]+)",
+        _merge_part_into_chapter,
+        raw_md,
+        flags=re.M,
+    )
+    tmp_md = os.path.join(src_dir, "_book_pdf.md")
+    tmp_body_html = os.path.join(src_dir, "_book_pdf_body.html")
+    tmp_full_html = os.path.join(src_dir, "_book_pdf_full.html")
+    open(tmp_md, "w", encoding="utf-8").write(pdf_md)
+    subprocess.run(["pandoc", tmp_md, "-o", tmp_body_html, "--quiet"], cwd=src_dir, check=True)
+    body_html = open(tmp_body_html, encoding="utf-8").read()
+    cover_block = f'<div class="cover-page"><img src="{os.path.basename(cover_path)}" alt="封面"/></div>' if (cover_path and os.path.exists(cover_path)) else ""
+
+    full_html = f"""<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>{book_title}</title><style>
+  @page {{ size: 148mm 218mm; margin: 12mm 11mm 13mm 11mm; }}
+  @page :first {{ margin: {'0' if cover_block else '12mm 11mm 13mm 11mm'}; }}
+  * {{ box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }}
+  html, body {{ margin: 0; padding: 0; font-family: "PingFang SC", "Hiragino Sans GB", "Songti SC", sans-serif; font-size: 11pt; line-height: 1.72; color: #1E293B; background: #FFF; }}
+  .cover-page {{ width: 148mm; height: 218mm; margin: 0; padding: 0; page-break-after: always; break-after: page; overflow: hidden; }}
+  .cover-page img {{ width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; border-radius: 0; max-height: none; border: none; }}
+  .toc-page {{ page-break-after: always; break-after: page; padding: 0; }}
+  .toc-title {{ font-family: "Songti SC", "STSong", serif; font-size: 15.5pt; font-weight: 900; color: #16324F; border-bottom: 2px solid #16324F; padding-bottom: 4px; margin-bottom: 6px; letter-spacing: 4px; }}
+  .toc-list {{ list-style: none; padding: 0; margin: 0; }}
+  .toc-part {{ font-family: "Songti SC", "STSong", serif; font-size: 9.8pt; font-weight: 900; color: #C87D55; background: #FAF8F3; padding: 2.5px 7px; border-left: 3.5px solid #16324F; margin: 4px 0 2px 0; }}
+  .toc-ch {{ font-size: 8.8pt; color: #1E3A5F; padding: 1.5px 0 1.5px 6px; border-bottom: 1px dashed #E2E8F0; line-height: 1.32; }}
+  h1, h2 {{ font-family: "Songti SC", "STSong", serif; color: #13293D; line-height: 1.35; page-break-before: always; break-before: page; page-break-after: avoid; break-after: avoid; margin-top: 0.2em; margin-bottom: 0.6em; border-bottom: 2px solid #16324F; padding-bottom: 0.3em; }}
+  h1 {{ font-size: 16pt; }} h2 {{ font-size: 14.5pt; }}
+  h3 {{ font-family: "PingFang SC", sans-serif; font-size: 12pt; color: #1E3A5F; margin-top: 1.15em; margin-bottom: 0.45em; border-left: 4px solid #C87D55; padding-left: 8px; page-break-after: avoid; break-after: avoid; }}
+  h4 {{ font-size: 10.8pt; color: #334155; margin-top: 0.9em; margin-bottom: 0.35em; page-break-after: avoid; break-after: avoid; }}
+  p {{ margin: 0.55em 0; text-align: justify; }}
+  blockquote {{ border-left: 3.5px solid #C87D55; background: #FAF8F3; padding: 8px 12px; margin: 0.7em 0; color: #475569; border-radius: 0 6px 6px 0; page-break-inside: avoid; break-inside: avoid; }}
+  .part-banner {{ background: #16324F; color: #FFF; padding: 10px 14px; border-radius: 6px; border-left: 5px solid #C87D55; margin: 0.3em 0 0.9em 0; page-break-inside: avoid; break-inside: avoid; }}
+  .part-banner-title {{ font-weight: bold; font-size: 11.2pt; color: #FDE68A; }}
+  .part-banner-sub {{ font-size: 9pt; color: #E2E8F0; margin-top: 3px; line-height: 1.4; }}
+  figure {{ margin: 0.75em auto; text-align: center; page-break-inside: avoid; break-inside: avoid; max-width: 100%; }}
+  figure img, img {{ display: block; margin: 0 auto; max-width: 100%; max-height: 135mm; width: auto; height: auto; object-fit: contain; border-radius: 6px; border: 1px solid #E2E8F0; }}
+  figcaption {{ font-size: 8.8pt; line-height: 1.4; color: #475569; margin-top: 5px; font-weight: bold; text-align: center; page-break-before: avoid; break-before: avoid; }}
+  table {{ border-collapse: collapse; width: 100%; margin: 0.7em 0; font-size: 8.6pt; line-height: 1.42; page-break-inside: avoid; break-inside: avoid; }}
+  thead {{ display: table-header-group; page-break-after: avoid; break-after: avoid; }}
+  tr, th, td {{ border: 1px solid #CBD5E1; padding: 4.5px 6px; text-align: left; vertical-align: top; page-break-inside: avoid; break-inside: avoid; }}
+  th {{ background-color: #16324F !important; color: #FFF !important; font-weight: bold; }}
+  tbody tr:nth-child(even) {{ background-color: #F8FAFC !important; }}
+  sup {{ font-size: 0.72em; color: #64748B; }}
+</style></head><body>{cover_block}{toc_html}{body_html}</body></html>"""
+
+    open(tmp_full_html, "w", encoding="utf-8").write(full_html)
+    subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={os.path.abspath(dst_pdf)}", f"file://{os.path.abspath(tmp_full_html)}"], stderr=subprocess.DEVNULL, check=True)
+    for tf in (tmp_md, tmp_body_html, tmp_full_html):
+        if os.path.exists(tf):
+            os.remove(tf)
+    return True
+
+
 def audit_epub(epub_path):
     """Verify EPUB quality: XML well-formedness, no raw [E0xx] leaks, no stub pages, no >5-col or empty-cell tables."""
     import xml.etree.ElementTree as ET
@@ -604,6 +693,9 @@ def main():
     to_epub(book_md, os.path.join(pkg, "book.epub"), epub_css, cover_path=cover_img)
     audit_epub(os.path.join(pkg, "book.epub"))
     shutil.copy(os.path.join(pkg, "book.epub"), os.path.join(sub, "全书稿.epub"))
+
+    if to_pdf(book_md, os.path.join(pkg, "book.pdf"), cover_path=cover_img, book_title=book_title):
+        shutil.copy(os.path.join(pkg, "book.pdf"), os.path.join(sub, "全书稿.pdf"))
 
     proposal = os.path.join(pkg, "proposal.md")
     if os.path.exists(proposal):
