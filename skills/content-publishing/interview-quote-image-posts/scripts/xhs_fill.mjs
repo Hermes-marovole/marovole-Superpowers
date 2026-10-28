@@ -28,13 +28,27 @@ await page.keyboard.press("ControlOrMeta+a");
 await page.keyboard.press("Backspace");
 for (const l of text.split("\n")) { await page.keyboard.insertText(l); await page.waitForTimeout(300); await page.keyboard.press("Enter"); await page.waitForTimeout(200); }
 const result = [];
+const findItem = (t) => page.evaluate((tag) => {
+  const e = [...document.querySelectorAll("div.item")].find((d) => d.innerText.split("\n")[0].trim() === tag && d.getBoundingClientRect().height > 0);
+  if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+}, t);
 for (const t of tags) {
+  // 下拉有时 1.8s 还没渲染（尤其正文刚打完的第一个话题），漏点会把 #xx 当成纯文本粘进正文，
+  // 和后面的话题粘成一串。所以先等 2.5s，没命中就退格删掉重打一次。
   await page.keyboard.insertText(t);
-  await page.waitForTimeout(1800);
-  const hit = await page.evaluate((tag) => {
-    const e = [...document.querySelectorAll("div.item")].find((d) => d.innerText.split("\n")[0].trim() === tag && d.getBoundingClientRect().height > 0);
-    if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
-  }, t);
+  await page.waitForTimeout(2500);
+  let hit = await findItem(t);
+  if (!hit) {
+    await page.waitForTimeout(1500);
+    hit = await findItem(t);
+  }
+  if (!hit) {
+    for (let i = 0; i < t.length; i++) await page.keyboard.press("Backspace");
+    await page.waitForTimeout(600);
+    await page.keyboard.insertText(t);
+    await page.waitForTimeout(2500);
+    hit = await findItem(t);
+  }
   if (hit) { await page.mouse.click(hit.x, hit.y, { label: "pick exact topic" }); result.push(t + "✓"); }
   else { await page.keyboard.press("Space"); result.push(t + "(plain)"); }
   await page.waitForTimeout(600);

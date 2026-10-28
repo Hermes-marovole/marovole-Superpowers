@@ -3,7 +3,7 @@
 unset PYTHONPATH PYTHONHOME
 P=~/.hermes/venvs/nsqi/bin/python
 S=~/.hermes/skills/media/native-subtitle-quote-image/scripts/native_subtitle_stitch.py
-cd ~/HermesWork/字幕长图/"$1"; OUT=${2:-output-v1}; mkdir -p "$OUT"
+cd ~/HermesWork/字幕长图 && cd "$1"; OUT=${2:-output-v1}; mkdir -p "$OUT"
 for f in *.script.json; do n=${f%.script.json}
   $P $S render-script source/video.mp4 --script "$f" --out "$OUT/$n.jpg" --aspect 3:4 --width 1440 --overwrite 2>&1 | tail -1
 done
