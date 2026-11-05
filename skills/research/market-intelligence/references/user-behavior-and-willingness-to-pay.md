@@ -17,6 +17,8 @@
 
 本机已安装的 `opencli` 拥有 **181 个网站、1289 个现成命令**。在做市场调研时，严禁放着现成结构化接口不用去写脆弱的 HTML 爬虫。以下按调研场景归类最核心的命令：
 
+> **命令签名自检（写进任何文档前必做）**：适配器普遍吃**位置参数**（`opencli jd search "词" -f json`），不是 `--keyword` / `--url` / `--query` 旗标；同一站点的不同子命令入参形态也不同（`search <query>` vs `detail <id>` vs `bestsellers <url|node>`）。动手前先跑 `opencli <site> --help` 或 `opencli <site> --help -f json` 核对，尤其是要交给他人的 handoff 里的命令——写错旗标会让对方在自己的环境里重踩一次。下方命令按已核对过的写法给出；未核对过的站点标了 `⚠️ 需核对`。
+
 ### 1. 货架电商、供应链底价与付费意愿检验（JD / Taobao / 1688 / Amazon / Xianyu / Pinduoduo）
 
 ```bash
@@ -52,6 +54,22 @@ opencli amazon product <ASIN> -f json
 opencli amazon discussion <ASIN> -f json
 ```
 
+> **JSON 字段因站点与子命令而异，不要凭一次经验套模板**：`opencli <site> <cmd> -f json` 统一返回 `{"ok":true,"data":[...]}`，但 `data[*]` 的键名各站不同，而且**取错键会静默返回空串、不报错**——表现为「抓到了几十条评论，但每条内容都是空的」，很容易被误判成平台反爬或没抓到数据。写任何提取循环之前先跑一行探针：
+>
+> ```bash
+> python3 -c "import json;d=json.load(open('out.json'));print(list(d['data'][0].keys()))"
+> ```
+>
+> 本机已实测的键名：
+> - `taobao search` → `title` / `price` / `sales`（形如 `900+人付款`）/ `shop` / `url`
+> - `taobao reviews` → `content` / `date` / `spec` / `user` / `rank`
+> - `bilibili comments` → `text` / `author` / `likes` / `rank` / `rpid` / `replies` / `time`（**不是** `message`、`content`、`uname`，这三个取到的是空串）
+> - `bilibili search` → `title` / `plays` / `author` / `url`
+> - `amazon product` → `price_text` / `price_value` / `rating_value` / `review_count_text` / `review_count` / `breadcrumbs`
+> - `1688 search` → 标题、价格与成交量混在同一个 `title` 串里（如 `白芸豆片 ¥17.74 每g¥0.3 700+件`），需自己用正则拆出价格与成交量，没有独立的 `price` 字段
+>
+> 另外：`amazon discussion` 可能 detached 失败导致评价正文取不到；此时退到 `amazon product` 的 `review_count`（如 16,691 条、1,194 条）——累计评价量本身就是需求强度与品类成熟度的可用指标，不要因为拿不到正文就放弃这个平台的验证。
+
 ### 2. 兴趣与直播带货电商（抖音精选联盟/蝉妈妈/考古加 + 小红书买手种草 + 微信视频号小店）
 
 ```bash
@@ -83,18 +101,20 @@ opencli youtube search "perimenopause supplements review" -f json
 
 ### 3. 公司商业推动力、资本动向与招聘信号（东方财富 / 雪球 / BOSS直聘 / LinkedIn / PubMed）
 
+> ⚠️ 需核对：本组站点命令未逐条实测，先 `opencli eastmoney --help`、`opencli xueqiu --help`、`opencli boss --help`、`opencli linkedin --help`、`opencli pubmed --help` 拿到真实签名再改写成下方命令；下面只保留语义（查什么），不锁死具体参数形态。
+
 ```bash
 # ① 东方财富 & 雪球：查上市公司最新公告、机构调研纪要、高管增减持、股民/行业老兵深度拆解
-opencli eastmoney announcement --keyword "汤臣倍健" -f json
-opencli xueqiu search --keyword "健合集团 Swisse 财报" -f json
-opencli xueqiu comments --symbol "<股票代码>" -f json
+opencli eastmoney announcement <公司名或代码> -f json
+opencli xueqiu search <公司名或代码> -f json
+opencli xueqiu comments <股票代码> -f json
 
 # ② BOSS直聘 & LinkedIn：查竞品正在高薪招什么岗位（逆向工程对手未来半年的商业发力点）
-opencli boss detail --url "<job_url>" -f json
-opencli linkedin search --query "<company_name>" -f json
+opencli boss detail <岗位URL> -f json
+opencli linkedin search <公司名> -f json
 
-# ③ PubMed 临床循证：查某成分/方案的最新临床试验与荟萃分析（支撑灵知 AI 的循证壁垒）
-opencli pubmed search --query "magnesium glycinate insomnia clinical trial" -f json
+# ③ PubMed 临床循证：查某成分/方案的最新临床试验与荟萃分析（支撑循证壁垒）
+opencli pubmed search "magnesium glycinate insomnia clinical trial" -f json
 ```
 
 ---
@@ -131,3 +151,34 @@ opencli pubmed search --query "magnesium glycinate insomnia clinical trial" -f j
    → **核心留存迭代方向（Retention Feature）**：不要去卷前端卖货话术，重点迭代产品的「最小依从性闭环」（如分阶段小剂量适应、第 3/7/14 天体感复评、不适反应一键调方）。
 4. **巨头财报销售费用率 >50% + 风险因素提示“获客成本持续上升”**
    → **商业模式避坑指令**：严禁跟风买量投流，必须用「高留存订阅/复购服务 + 老客转介绍（Referral）+ 私域陪伴」重构单位经济模型（Unit Economics）。
+
+---
+
+## 五、同人群 × 多形态付费极性对照法（证明「内容不是产品」的最强证据）
+
+判断一个赛道有没有付费意愿，不要问「这个品类有没有人买单」（几乎所有品类都有人买单，问完等于没问），要问：**同一人群的同一诉求，换一种交付形态，付款人数会差几个数量级？**
+
+做法：固定平台（淘宝/天猫或 Amazon）、固定一组人群词，横向搜五种形态，逐行记录「标价 × 真实付款人数 × 评价原话」。量级落差自己会说话：
+
+| 交付形态 | 检索词骨架 | 典型实抓量级 |
+| :--- | :--- | :--- |
+| 纯录播课 / 网盘发货的「XX 天训练营」 | `<人群> 训练营 视频课` | ¥3.6–¥15，**1–2 人付款** |
+| 静态食谱 / 计划表 / 电子资料 | `<人群> 减脂 计划 资料` | ¥9.9，**0 人付款** |
+| 同名方法论图书（6 家店交叉验证） | `<人群> 减肥 书` | ¥10–¥15，多家店**全部 0 付款** |
+| 1v1 定制计划 + 实时看餐答疑 | `<人群> 私教 定制 食谱 答疑` | ¥99–¥167，**100–700+ 人付款** |
+| 功效型实物（补剂 / 低 GI 主食替换） | 具体成分词或品类词 | ¥39–¥1,800，**数千–十万+ 人付款** |
+
+可写出的结论只有一条：**用户不为「内容」付钱，为「有人替我看这一顿怎么办」和「身体可感的实物」付钱**。课程的作用是把人从免费内容里捞出来、建立信任并降低后续交付的边际成本；利润必须落在答疑服务与实物/复评调方上。差价不是营销话术问题而是形态问题——把纯视频课从 ¥3.6 提价到 ¥99 并不会让它变得可卖。
+
+三条配套硬规矩：
+1. **付款人数是唯一可信的销量**：直接引用 `sales` 字段里的「X 人付款」，不要用「月销」估算，也不要用评价数充当销量。同款商品挂多个链接时，把付款人数逐条列出再求和对比。
+2. **差评反证比好评更有价值**：在同一个爆款下专找「体重没少反而增加」「吃了胃疼」「没效果」这类差评——它们精确标出了单卖实物的失效条件，而那正是「课程 + 看餐/复评」要补的那一环。好评只证明成交，差评才能定位产品缺口。
+3. **原话必须整句摘 + 带日期与规格**：淘宝评价的 `date` 与 `spec`（如「已购 3 瓶周期装」「基础款适合小基数」）决定了这句话出自高客单用户还是低价试用者。摘引时三项一起给，否则「用户很满意」会被误读成对低价款的满意。
+
+## 六、供应链底牌：把「终端溢价倍数」做成一张表
+
+用 `opencli 1688 search` 拿源头 OEM/ODM 报价，再去淘宝/Amazon 拿同品类终端价，逐品类算 **终端价 ÷ 代工价**。同一成分在两端的价格断层（常见 10–100 倍）能同时回答三个问题：这赛道的钱被谁赚走了、渠道/达人分销的返点空间有多大、我们做自有品牌还剩多少毛利。
+
+- **1688 的「回头率」是需求真伪的第二信号**：回头率 45%–88% 的代工厂说明该配方在下游被反复复购，不是一次性询价；回头率缺失或极低的品类别急着选。
+- **跨品类横向比倍数，而不是只看单品**：益生菌类常见 30–100 倍、矿物/维生素类 10–20 倍、碳水阻断类 15–30 倍。倍数结构本身指向「该品类的溢价来自功效叙事还是品牌信任」。
+- **BOM 低不等于可以单卖**：把 BOM 价当卖点直接推实物，会撞上「用户不会吃 / 不会配 / 不知道什么时候停」的依从性墙（见第四节象限 3），必须与看餐、复评调方捆在一起交付。

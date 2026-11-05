@@ -4,8 +4,10 @@
 Subcommands:
   1. intent    -- Live user search action & commercial autocomplete expander (Google / Baidu / Bing / Taobao / Amazon / YouTube).
   2. ecommerce -- Generate 8-platform e-commerce & social-commerce (JD / Taobao / 1688 / Xianyu / Douyin / Xiaohongshu / WeChat Channels / Pinduoduo / Amazon) commands & queries.
-  3. queries   -- Generate targeted search queries for Prospectuses (S-1/HKEX/CN), 10-K/Earnings, VOC 1-3 star reviews, and GTM funnels.
-  4. size      -- Compute Top-Down vs Bottom-Up TAM/SAM/SOM and flag triangulation failures (>3x divergence).
+  3. hiring    -- Generate domestic & overseas hiring JD reverse-engineering queries (Zhaopin / Boss / Liepin / Greenhouse / Lever / Ashby) for SOP, caseload KPI & salary floor.
+  4. pubmed    -- Live fetch clinical papers & RCTs via Europe PMC REST API (avoiding NCBI E-utilities 500 error) with PMID, DOI, year & abstract.
+  5. queries   -- Generate targeted search queries for Prospectuses (S-1/HKEX/CN), 10-K/Earnings, VOC 1-3 star reviews, and GTM funnels.
+  6. size      -- Compute Top-Down vs Bottom-Up TAM/SAM/SOM and flag triangulation failures (>3x divergence).
 """
 import argparse
 import concurrent.futures
@@ -172,6 +174,7 @@ def cmd_ecommerce(args: argparse.Namespace) -> None:
         ],
         "4_secondhand_abandonment_test (闲鱼二手弃坑率：检验冲动消费 vs 真实复购)": [
             f'opencli xianyu search "{kw} 闲置 未拆封" -f json   # 拿 item_id 后跑: opencli xianyu item <id> -f json (看脱手理由)',
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'site:goofish.com OR site:smzdm.com "闲鱼" "{kw}" ("闲置" OR "未拆封" OR "仅拆封" OR "代充")\' --engine serper -n 8   # opencli attach 失败时的免登录穿透兜底',
         ],
     }
     if args.json:
@@ -184,6 +187,64 @@ def cmd_ecommerce(args: argparse.Namespace) -> None:
             print(f"\n[{sec}]")
             for c in cmds:
                 print(f"  • {c}")
+
+
+def cmd_hiring(args: argparse.Namespace) -> None:
+    kw = args.keyword.strip()
+    comp = args.competitors.strip() or kw
+    plan = {
+        "keyword": kw,
+        "1_cn_private_domain_sop_and_funnel (智联/猎聘/BOSS直聘：逆向拆解私域SOP、用户分层与转化漏斗)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'("{kw}" OR "{comp}") ("招聘" OR "岗位职责" OR "任职要求") ("私域" OR "企微" OR "SOP" OR "复购" OR "转化率" OR "训练营")\' --engine serper -n 10',
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'site:zhaopin.com OR site:liepin.com OR site:zhipin.com ("{kw}" OR "{comp}") ("岗位职责" OR "底薪" OR "提成")\' --engine serper -n 10',
+        ],
+        "2_cn_sales_and_coach_unit_economics (一线顾问/班主任/营养师底薪、提成比例与单客人工成本)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'("{kw}" OR "{comp}") ("顾问" OR "班主任" OR "运营") ("底薪" OR "提成" OR "人效" OR "绩效" OR "13薪")\' --engine serper -n 10',
+        ],
+        "3_global_unicorn_caseload_and_roadmap (Greenhouse / Lever / Ashby / Primary VC：海外独角兽人效上限与AI路线图)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'(site:greenhouse.io OR site:lever.co OR site:ashbyhq.com OR site:jobs.primary.vc) ("{comp}") ("caseload" OR "per user" OR "AI" OR "commerce" OR "retention")\' --engine serper -n 10',
+        ],
+    }
+    if args.json:
+        print(json.dumps(plan, indent=2, ensure_ascii=False))
+    else:
+        print(f"=== Hiring Signal & Unit-Economics Reverse-Engineering Matrix: '{kw}' ===")
+        for sec, cmds in plan.items():
+            if sec == "keyword":
+                continue
+            print(f"\n[{sec}]")
+            for c in cmds:
+                print(f"  • {c}")
+
+
+def cmd_pubmed(args: argparse.Namespace) -> None:
+    q = args.query.strip()
+    limit = args.limit
+    url = f"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query={urllib.parse.quote(q)}&format=json&resultType=core&pageSize={limit}"
+    req = urllib.request.Request(url, headers={"User-Agent": "curl/8.0"})
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        data = json.loads(resp.read().decode("utf-8", errors="replace"))
+    papers = []
+    for r in data.get("resultList", {}).get("result", []):
+        pmid = r.get("pmid") or r.get("id") or ""
+        papers.append({
+            "pmid": pmid,
+            "doi": r.get("doi") or "",
+            "year": r.get("pubYear") or "",
+            "journal": r.get("journalTitle") or "",
+            "title": r.get("title") or "",
+            "url": f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if r.get("pmid") else f"https://europepmc.org/article/{r.get('source','MED')}/{pmid}",
+            "abstract": (r.get("abstractText") or "")[:1000],
+        })
+    if args.json:
+        print(json.dumps(papers, indent=2, ensure_ascii=False))
+    else:
+        print(f"=== Europe PMC / PubMed Clinical Evidence ({len(papers)} papers for: '{q}') ===")
+        for i, p in enumerate(papers, 1):
+            print(f"\n{i}. [{p['year']} | PMID:{p['pmid']}] {p['title']}")
+            print(f"   Journal: {p['journal']} | URL: {p['url']}")
+            if p["abstract"]:
+                print(f"   Abstract: {p['abstract'][:320]}...")
 
 
 def cmd_queries(args: argparse.Namespace) -> None:
@@ -288,6 +349,16 @@ def main() -> None:
     sp_e.add_argument("keyword", help="Product category or brand keyword (e.g. '甘氨酸镁', 'Swisse')")
     sp_e.add_argument("--json", action="store_true")
 
+    sp_h = sub.add_parser("hiring", help="Generate hiring JD reverse-engineering queries for SOP, caseload KPI & salary floor")
+    sp_h.add_argument("keyword", help="Role or domain keyword (e.g. '体重管理', '私域营养师')")
+    sp_h.add_argument("--competitors", "-c", default="", help="Competitor names (e.g. 'Noom OR Midi Health OR 薄荷健康')")
+    sp_h.add_argument("--json", action="store_true")
+
+    sp_p = sub.add_parser("pubmed", help="Fetch clinical papers & RCTs via Europe PMC REST API with PMID/DOI/abstract")
+    sp_p.add_argument("query", help="Clinical search query (e.g. 'menopause visceral fat insulin resistance')")
+    sp_p.add_argument("--limit", "-n", type=int, default=8)
+    sp_p.add_argument("--json", action="store_true")
+
     sp_q = sub.add_parser("queries", help="Generate prospectus, earnings, VOC, and GTM search queries")
     sp_q.add_argument("--company", "-c", required=True, help="Target company or competitor name")
     sp_q.add_argument("--industry", "-i", default="", help="Industry or category name")
@@ -310,6 +381,10 @@ def main() -> None:
         cmd_intent(args)
     elif args.cmd == "ecommerce":
         cmd_ecommerce(args)
+    elif args.cmd == "hiring":
+        cmd_hiring(args)
+    elif args.cmd == "pubmed":
+        cmd_pubmed(args)
     elif args.cmd == "queries":
         cmd_queries(args)
     elif args.cmd == "size":
