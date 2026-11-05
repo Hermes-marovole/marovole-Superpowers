@@ -17,51 +17,68 @@
 
 本机已安装的 `opencli` 拥有 **181 个网站、1289 个现成命令**。在做市场调研时，严禁放着现成结构化接口不用去写脆弱的 HTML 爬虫。以下按调研场景归类最核心的命令：
 
-### 1. 电商交易、供应链底价与付费意愿检验（JD / Taobao / 1688 / Amazon / Xianyu）
+### 1. 货架电商、供应链底价与付费意愿检验（JD / Taobao / 1688 / Amazon / Xianyu / Pinduoduo）
 
 ```bash
-# ① 京东：查竞品真实价格、规格参数与真实买家差评/追评
-opencli jd search --keyword "甘氨酸镁" -f json
-opencli jd item --url "<jd_item_url>" -f json
-opencli jd reviews --url "<jd_item_url>" -f json
+# ① 京东：查竞品真实价格、规格参数与真实买家差评/30-90天追评
+opencli jd search "甘氨酸镁" -f json
+opencli jd item <sku_id_or_url> -f json
+opencli jd reviews <sku_id_or_url> -f json
 
-# ② 淘宝/天猫：查商品列表与评价
-opencli taobao search --keyword "更年期 营养包" -f json
-opencli taobao reviews --url "<taobao_url>" -f json
+# ② 淘宝/天猫：查实时购买下拉词、商品列表与买家评价
+python3 ~/.hermes/skills/research/market-intelligence/scripts/market_intel_tool.py intent "甘氨酸镁"
+opencli taobao search "更年期 营养包" -f json
+opencli taobao detail <item_id_or_url> -f json
+opencli taobao reviews <item_id_or_url> -f json
 
 # ③ 1688 供应链底牌：查同款配方/硬件的源头工厂批发价、阶梯报价（MOQ）与成交量（测算竞品真实 BOM 成本！）
-opencli 1688 search --keyword "甘氨酸镁 贴牌 代工" -f json
-opencli 1688 item --url "<1688_url>" -f json
-opencli 1688 store --url "<1688_store_url>" -f json
+opencli 1688 search "甘氨酸镁 贴牌 代工" -f json
+opencli 1688 item <offer_id_or_url> -f json
+opencli 1688 store <store_url> -f json
 
 # ④ 闲鱼弃坑率检测：查某网红产品有多少人在“吃不习惯/闲置转让”（检验真实留存 vs 营销泡沫）
-opencli xianyu search --keyword "Swisse 闲置" -f json
+opencli xianyu search "Swisse 闲置 未拆封" -f json
+opencli xianyu item <item_id> -f json
 
-# ⑤ Amazon 全球消费趋势：查畅销榜（Best Sellers）、飙升榜（Movers & Shakers）、新品榜（New Releases）与评论汇总
-opencli amazon bestsellers --category "<category_url>" -f json
-opencli amazon movers-shakers --category "<category_url>" -f json
-opencli amazon discussion --asin "<ASIN>" -f json
+# ⑤ 拼多多百亿补贴与白牌底价：摸清全网比价底线与白牌销量天花板
+python3 ~/.hermes/skills/research/web-search/scripts/search.py search 'site:yangkeduo.com OR "拼多多" "甘氨酸镁" ("百亿补贴" OR "已拼" OR "评价")' --engine serper -n 8
+
+# ⑥ Amazon 全球消费趋势：查畅销榜（Best Sellers）、飙升榜（Movers & Shakers）、新品榜（New Releases）与评论汇总
+opencli amazon bestsellers "<category_url_or_node>" -f json
+opencli amazon movers-shakers "<category_url_or_node>" -f json
+opencli amazon new-releases "<category_url_or_node>" -f json
+opencli amazon search "magnesium glycinate" -f json
+opencli amazon product <ASIN> -f json
+opencli amazon discussion <ASIN> -f json
 ```
 
-### 2. 用户行为、痛点原话与内容风向（小红书 / 抖音 / 知乎 / B站 / Reddit / YouTube）
+### 2. 兴趣与直播带货电商（抖音精选联盟/蝉妈妈/考古加 + 小红书买手种草 + 微信视频号小店）
 
 ```bash
-# ① 小红书：搜真实用户体验、避雷帖、楼中楼评论区追问（“求链接”、“怎么搭”、“吃出问题”）
-opencli xiaohongshu search --keyword "甘氨酸镁 副作用" -f json
-opencli xiaohongshu comments --url "<note_url>" -f json
+# ① 抖音电商 & 蝉妈妈/考古加/精选联盟：查爆款带货视频、达人佣金率（20%-50%）、GMV 量级与直播切片话术
+opencli douyin search "甘氨酸镁 睡眠" -f json
+opencli douyin hashtag search --keyword "女性营养" -f json
+opencli douyin detail <抖音短链或视频ID> -f json
+opencli douyin user-videos <带货达人_sec_uid> -f json
+python3 ~/.hermes/skills/research/web-search/scripts/search.py search '"甘氨酸镁" OR "Swisse" ("蝉妈妈" OR "考古加" OR "精选联盟" OR "佣金" OR "带货" OR "GMV")' --engine serper -n 8
 
-# ② 抖音：查热点话题词、AI 推荐词与单条爆款视频完整互动数据
-opencli douyin hashtag --keyword "中老年营养" -f json
-opencli douyin detail --url "<douyin_url>" -f json
+# ② 小红书买手电商与种草转化：看「收藏/点赞比 > 0.8」的爆款笔记，并抓取楼中楼评论区“求链接/怎么买/哪个牌子/吃了啥反应”的买单信号
+opencli xiaohongshu search "甘氨酸镁 测评 避雷" -f json
+opencli xiaohongshu note <note_id> -f json
+opencli xiaohongshu comments <note_id> -f json
 
-# ③ 知乎 & B站 & V2EX：深度长文测评、弹幕痛点与技术/极客圈口碑
-opencli zhihu search --query "定制维生素 智商税" -f json
-opencli bilibili search --keyword "补剂 搭配" -f json
+# ③ 微信视频号小店（40-60岁中老年高客单价营养品/滋补品第一带货阵地）：
+# 路径 A：通过已登录公众号后台 mp.weixin.qq.com 的 /cgi-bin/videosnap 接口免扫码拉取竞品视频号全量爆款列表（见 web-crawler 技能）
+# 路径 B：搜狗微信与全网检索视频号带货爆款
+opencli weixin search "视频号 营养 爆款" -f json
+python3 ~/.hermes/skills/research/web-search/scripts/search.py search '"视频号" ("微信小店" OR "带货" OR "中老年") "营养"' --engine serper -n 8
 
-# ④ Reddit & YouTube & Twitter/X：海外真实用户长帖讨论与视频评论
-opencli reddit search --query "menopause supplement stack" -f json
-opencli reddit read --url "<reddit_thread_url>" -f json
-opencli youtube search --query "perimenopause supplements review" -f json
+# ④ 知乎 & B站 & Reddit & YouTube：深度长文测评、弹幕痛点与海外真实用户 Stack 讨论
+opencli zhihu search "定制维生素 智商税" -f json
+opencli bilibili search "补剂 搭配" -f json
+opencli reddit search "menopause supplement stack" -f json
+opencli reddit read <reddit_thread_url> -f json
+opencli youtube search "perimenopause supplements review" -f json
 ```
 
 ### 3. 公司商业推动力、资本动向与招聘信号（东方财富 / 雪球 / BOSS直聘 / LinkedIn / PubMed）

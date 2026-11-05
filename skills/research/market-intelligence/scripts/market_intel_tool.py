@@ -2,9 +2,10 @@
 """Market, Financial, User Intent & GTM Intelligence CLI Helper.
 
 Subcommands:
-  1. intent   -- Live user search action & commercial autocomplete expander (Google / Baidu / Bing / Taobao / Amazon / YouTube).
-  2. queries  -- Generate targeted search queries for Prospectuses (S-1/HKEX/CN), 10-K/Earnings, VOC 1-3 star reviews, and GTM funnels.
-  3. size     -- Compute Top-Down vs Bottom-Up TAM/SAM/SOM and flag triangulation failures (>3x divergence).
+  1. intent    -- Live user search action & commercial autocomplete expander (Google / Baidu / Bing / Taobao / Amazon / YouTube).
+  2. ecommerce -- Generate 8-platform e-commerce & social-commerce (JD / Taobao / 1688 / Xianyu / Douyin / Xiaohongshu / WeChat Channels / Pinduoduo / Amazon) commands & queries.
+  3. queries   -- Generate targeted search queries for Prospectuses (S-1/HKEX/CN), 10-K/Earnings, VOC 1-3 star reviews, and GTM funnels.
+  4. size      -- Compute Top-Down vs Bottom-Up TAM/SAM/SOM and flag triangulation failures (>3x divergence).
 """
 import argparse
 import concurrent.futures
@@ -150,6 +151,41 @@ def cmd_intent(args: argparse.Namespace) -> None:
             print(f"      {', '.join(items[:12])}")
 
 
+def cmd_ecommerce(args: argparse.Namespace) -> None:
+    kw = args.keyword.strip()
+    plan = {
+        "keyword": kw,
+        "1_shelf_ecommerce (货架电商：真实售价、销量结构与30-90天追评)": [
+            f'opencli jd search "{kw}" -f json   # 拿到 sku_id 后跑: opencli jd item <sku> -f json && opencli jd reviews <sku> -f json',
+            f'opencli taobao search "{kw}" -f json   # 拿到 id 后跑: opencli taobao detail <id> -f json && opencli taobao reviews <id> -f json',
+            f'opencli amazon search "{kw}" -f json   # 查海外畅销与飙升: opencli amazon bestsellers / movers-shakers',
+        ],
+        "2_supply_chain_bom_cost (1688 源头代工底价与拼多多白牌底线)": [
+            f'opencli 1688 search "{kw} 代工 贴牌" -f json   # 拿 offer 后跑: opencli 1688 item <url> -f json (算 BOM 毛利倍数)',
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'site:yangkeduo.com OR "拼多多" "{kw}" ("百亿补贴" OR "已拼" OR "评价")\' --engine serper -n 8',
+        ],
+        "3_interest_and_live_ecommerce (抖音电商/蝉妈妈/精选联盟 + 小红书买手种草 + 视频号小店)": [
+            f'opencli douyin search "{kw}" -f json   # 拿 aweme_id 后跑: opencli douyin detail <id> -f json',
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'"{kw}" ("蝉妈妈" OR "考古加" OR "精选联盟" OR "佣金" OR "带货" OR "GMV" OR "直播间")\' --engine serper -n 8',
+            f'opencli xiaohongshu search "{kw} 测评 避雷" -f json   # 拿 note_id 后跑: opencli xiaohongshu comments <note_id> -f json (统计"求链接/怎么买"买单密度)',
+            f'opencli weixin search "{kw} 视频号" -f json   # 或借 mp.weixin.qq.com /cgi-bin/videosnap 拉取竞品视频号全量爆款',
+        ],
+        "4_secondhand_abandonment_test (闲鱼二手弃坑率：检验冲动消费 vs 真实复购)": [
+            f'opencli xianyu search "{kw} 闲置 未拆封" -f json   # 拿 item_id 后跑: opencli xianyu item <id> -f json (看脱手理由)',
+        ],
+    }
+    if args.json:
+        print(json.dumps(plan, indent=2, ensure_ascii=False))
+    else:
+        print(f"=== 8-Platform E-Commerce & Social-Commerce Intelligence Matrix: '{kw}' ===")
+        for sec, cmds in plan.items():
+            if sec == "keyword":
+                continue
+            print(f"\n[{sec}]")
+            for c in cmds:
+                print(f"  • {c}")
+
+
 def cmd_queries(args: argparse.Namespace) -> None:
     c = args.company
     ind = args.industry or c
@@ -248,6 +284,10 @@ def main() -> None:
     sp_i.add_argument("seed", help="Seed keyword (e.g. '甘氨酸镁', '更年期失眠', 'menopause supplement')")
     sp_i.add_argument("--json", action="store_true")
 
+    sp_e = sub.add_parser("ecommerce", help="Generate 8-platform e-commerce, live-commerce & 1688 BOM scraping matrix")
+    sp_e.add_argument("keyword", help="Product category or brand keyword (e.g. '甘氨酸镁', 'Swisse')")
+    sp_e.add_argument("--json", action="store_true")
+
     sp_q = sub.add_parser("queries", help="Generate prospectus, earnings, VOC, and GTM search queries")
     sp_q.add_argument("--company", "-c", required=True, help="Target company or competitor name")
     sp_q.add_argument("--industry", "-i", default="", help="Industry or category name")
@@ -268,6 +308,8 @@ def main() -> None:
     args = parser.parse_args()
     if args.cmd == "intent":
         cmd_intent(args)
+    elif args.cmd == "ecommerce":
+        cmd_ecommerce(args)
     elif args.cmd == "queries":
         cmd_queries(args)
     elif args.cmd == "size":

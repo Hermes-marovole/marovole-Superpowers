@@ -524,6 +524,21 @@ def cmd_intent(args: argparse.Namespace) -> None:
         for cat, items in report["intent_matrix"].items():
             print(f"  • [{cat}]: {', '.join(items[:10])}")
 
+def cmd_ecommerce(args: argparse.Namespace) -> None:
+    kw = args.keyword.strip()
+    plan = {
+        "1_shelf_ecommerce": [f'opencli jd search "{kw}" -f json', f'opencli taobao search "{kw}" -f json', f'opencli amazon search "{kw}" -f json'],
+        "2_supply_chain_bom": [f'opencli 1688 search "{kw} 代工 贴牌" -f json', f'python3 ~/.config/agent-research-router/search.py search \'site:yangkeduo.com OR "拼多多" "{kw}" ("百亿补贴" OR "已拼")\' --engine serper'],
+        "3_interest_live_ecommerce": [
+            f'opencli douyin search "{kw}" -f json',
+            f'python3 ~/.config/agent-research-router/search.py search \'"{kw}" ("蝉妈妈" OR "考古加" OR "精选联盟" OR "佣金" OR "GMV")\' --engine serper',
+            f'opencli xiaohongshu search "{kw} 测评 避雷" -f json',
+            f'opencli weixin search "{kw} 视频号" -f json',
+        ],
+        "4_secondhand_abandonment": [f'opencli xianyu search "{kw} 闲置 未拆封" -f json'],
+    }
+    print(json.dumps(plan, indent=2, ensure_ascii=False) if args.json else "\\n".join(f"[{k}]\\n  " + "\\n  ".join(v) for k, v in plan.items()))
+
 def cmd_queries(args: argparse.Namespace) -> None:
     c, ind = args.company, args.industry or args.company
     queries = {
@@ -560,10 +575,11 @@ def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
     sp_i = sub.add_parser("intent"); sp_i.add_argument("seed"); sp_i.add_argument("--json", action="store_true")
+    sp_e = sub.add_parser("ecommerce"); sp_e.add_argument("keyword"); sp_e.add_argument("--json", action="store_true")
     sp_q = sub.add_parser("queries"); sp_q.add_argument("-c", "--company", required=True); sp_q.add_argument("-i", "--industry", default=""); sp_q.add_argument("--json", action="store_true")
     sp_s = sub.add_parser("size"); sp_s.add_argument("--tam-total", type=float, required=True); sp_s.add_argument("--sam-pct", type=float, default=0.15); sp_s.add_argument("--som-pct", type=float, default=0.02); sp_s.add_argument("--total-customers", type=float, required=True); sp_s.add_argument("--reachable-customers", type=float, required=True); sp_s.add_argument("--conv-rate", type=float, default=0.02); sp_s.add_argument("--acv", type=float, required=True)
     args = p.parse_args()
-    {"intent": cmd_intent, "queries": cmd_queries, "size": cmd_size}[args.cmd](args)
+    {"intent": cmd_intent, "ecommerce": cmd_ecommerce, "queries": cmd_queries, "size": cmd_size}[args.cmd](args)
 
 if __name__ == "__main__":
     main()
@@ -599,12 +615,16 @@ description: "Use when doing market/competitor/10-K/GTM intel."
 ## Step 3: 市场规模双向三角校验 (TAM / SAM / SOM Triangulation)
 运行 `market_intel_tool.py size` 同时计算 Top-Down 与 Bottom-Up（目标可触达人数 × 转化率 × 年客单价 ACV）。若两者 SOM 相差超过 3 倍，必须标红预警并修正假设。
 
-## Step 4: 跨平台用户行为、付费意愿与供应链底价穿透 (`opencli` 181 站点联动)
-优先调用本机 `opencli` 结构化命令（免写爬虫）：
-- **供应链真实 BOM 底价**：`opencli 1688 search --keyword "<品类> 代工" -f json`（对比 1688 出厂价与京东/Amazon 终端价，看穿真实毛利空间）。
-- **前端买单与 90 天追评**：`opencli jd search/item/reviews`、`opencli taobao search/reviews`、`opencli amazon bestsellers/movers-shakers`。
-- **后端弃坑率检测（闲鱼测试法）**：`opencli xianyu search --keyword "<竞品> 闲置" -f json`（若大量“吃不惯/未拆封转让”，说明前端营销过重、后端依从性崩盘）。
-- **用户手工土办法（Workaround）与迁移原话**：用 `opencli xiaohongshu search/comments`、`opencli reddit search/read`、`opencli zhihu search` 寻找用户自制表格、分装药盒或 `"换到了" / "switched from"` 的原话，将其转化为产品核心功能切口（Feature Wedge）。
+## Step 4: 八大电商全链路（货架 + 兴趣直播带货 + 源头供应链）与用户行为穿透
+运行 `market_intel_tool.py ecommerce "<品类/品牌>"` 生成 8 大电商阵地采集指令，并调用本机 `opencli` 结构化命令：
+- **货架电商（京东/淘宝/Amazon）**：`opencli jd search/item/reviews`、`opencli taobao search/detail/reviews`、`opencli amazon bestsellers/movers-shakers`（提取真实价格带与 30-90 天追评原话）。
+- **兴趣与直播带货电商（抖音精选联盟/蝉妈妈/考古加 + 小红书买手种草 + 视频号微信小店）**：
+  - 抖音：`opencli douyin search/detail/user-videos` 拆解爆款带货视频前 3 秒黄金钩子与完整口播文案，配合 `search.py` 检索蝉妈妈/考古加/精选联盟公开数据（看达人带货佣金率 20%-50%、直播间 GMV 构成）；
+  - 小红书：`opencli xiaohongshu search/note/comments` 筛选「收藏/点赞比 > 0.8」的高转化种草笔记，统计评论区“求链接/怎么买”买单信号；
+  - 视频号小店（40-60岁高客单价营养品第一阵地）：`opencli weixin search` 或借公众号后台 `/cgi-bin/videosnap` 接口拉取竞品视频号全量爆款。
+- **供应链真实 BOM 底价与拼多多白牌底线**：`opencli 1688 search "<品类> 代工 贴牌" -f json`（对比 1688 出厂价与终端零售价算毛利倍数）+ 拼多多百亿补贴价格底线检索。
+- **后端弃坑率检测（闲鱼测试法）**：`opencli xianyu search "<竞品> 闲置 未拆封" -f json`（检验冲动消费 vs 真实长期复购）。
+- **用户手工土办法（Workaround）与迁移原话**：用 `opencli xiaohongshu`、`opencli reddit`、`opencli zhihu` 寻找用户自制表格、分装药盒或 `"换到了" / "switched from"` 原话，转化为产品核心功能切口（Feature Wedge）。
 
 ## Step 5: 并发竞品侦察兵与魔鬼代言人反方压测 (Scouts & Devil's Advocate)
 1. 用 `firecrawl_map` 扫描竞品全站目录结构（识别 `/quiz`、`/calculator`、`/vs` 获客漏斗），用 `opencli boss` / `linkedin` 查竞品在招岗位 JD（逆向工程其未来 6 个月产品路线图）。

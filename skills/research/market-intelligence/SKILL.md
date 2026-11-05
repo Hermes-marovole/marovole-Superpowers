@@ -108,10 +108,15 @@ SOURCES_PY=~/.hermes/skills/research/grounded-citations/scripts/sources.py
 1. **实时搜索动作与购买意图雷达 (`market_intel_tool.py intent`)**：
    - 运行 `python3 $MI_TOOL intent "<核心词/品类词>"`，一键并发拉取 **Google / 百度 / 必应 / YouTube / 淘宝天猫 / Amazon** 6 大平台的实时搜索下拉框联想词（Autocomplete），并自动裂变为「痛点与副作用」「购买与选型意图」「用法与依从性行为」三维矩阵。
    - **洞察逻辑**：搜索框下拉词是全网几十万用户用手指投票出来的最高频真实动作（如搜`甘氨酸镁`直接蹦出`甘氨酸镁副作用睡不着`、`甘氨酸镁一般吃几天停`、`甘氨酸镁怎么吃不伤胃`），直接对应产品最该做的核心功能与获客选题。
-2. **付费意愿与弃坑率交叉检验 (`opencli` 电商与二手链路)**：
-   - **前端买单信号**：用 `opencli jd search/item/reviews`、`opencli taobao search/reviews`、`opencli amazon bestsellers/movers-shakers` 提取主力价格带（日均花费锚点）与高转化卖点。
-   - **后端弃坑检验（闲鱼测试法）**：用 `opencli xianyu search --keyword "<竞品名> 闲置"` 检查二手转让率與转让理由（如“买了吃不惯”、“颗粒太大咽不下”），识别“前端靠营销冲动消费、后端依从性崩盘”的假复购品类。
-   - **供应链真实 BOM 底价（1688 透视法）**：用 `opencli 1688 search/item` 查源头代工厂同款配方的批发拿货价与起订量（MOQ），对比终端售价算出行业真实毛利空间，看穿商业推动力到底是“高毛利驱动的达人分销”还是“研发壁垒”。
+2. **八大电商全链路与带货底牌交叉检验 (`market_intel_tool.py ecommerce <词>` + `opencli`)**：
+   - 运行 `python3 $MI_TOOL ecommerce "<品类或品牌词>"` 生成 **货架电商 + 兴趣直播电商 + 源头供应链** 8 大阵地采集指令：
+   - **货架电商（京东/淘宝/Amazon）**：用 `opencli jd search/item/reviews`、`opencli taobao search/detail/reviews`、`opencli amazon bestsellers/movers-shakers` 提取主力价格带（日均花费锚点）、自营 vs 旗舰店销量结构及 **30–90 天追评原话**。
+   - **兴趣与直播带货电商（抖音精选联盟/蝉妈妈/考古加 + 小红书买手种草 + 视频号微信小店）**：
+     - 抖音：用 `opencli douyin search/detail/user-videos` 拆解爆款带货视频的前 3 秒黄金钩子与完整口播文案，并配合 `search.py` 检索蝉妈妈/考古加/精选联盟公开数据（看达人带货佣金率 20%–50%、直播间 GMV 构成）；
+     - 小红书：用 `opencli xiaohongshu search/note/comments` 筛选「收藏/点赞比 > 0.8」的高转化种草笔记，并统计楼中楼评论区“求链接/怎么买/多少钱”的真实买单密度；
+     - 微信视频号（40–60 岁高客单价营养品第一阵地）：借公众号后台 `mp.weixin.qq.com` 的 `/cgi-bin/videosnap` 接口免扫码拉取竞品视频号全量爆款，或用 `opencli weixin search` 追踪爆款动态。
+   - **供应链真实 BOM 底价与拼多多白牌底线（1688 + 拼多多）**：用 `opencli 1688 search/item` 查源头代工厂 OEM/ODM 阶梯批发价与起订量（MOQ），结合拼多多百亿补贴价格底线，算出品牌真实毛利倍数（终端价 ÷ 1688 代工价）。
+   - **后端弃坑检验（闲鱼测试法）**：用 `opencli xianyu search "<竞品名> 闲置 未拆封"` 检查二手转让率与转让理由（如“买了吃不惯”、“颗粒太大咽不下”），识别“前端靠高佣金达人冲动带货、后端依从性崩盘”的假复购品类。
 3. **两类必抓用户原话（Verbatim Quotes）**：
    - **手工替代方案与挫败点（Workaround & Friction）**：用户在小红书（`opencli xiaohongshu search/comments`）、Reddit（`opencli reddit search/read`）、知乎（`opencli zhihu search`）上晒出的 Excel 表、分装药盒照片或“这几种能不能一起吃”的求助帖 → 直接转化为 AI 产品的自动化功能切口（Feature Wedge）。
    - **迁移触发词（Switching Language）**：专门检索 `"换到了"`、`"弃坑"`、`"switched from"`、`"instead of"`，用 `dbs-jtbd` 拆解推力（旧方案痛点）、拉力（新方案承诺）、焦虑（切换顾虑）与习惯（惰性阻力）。
