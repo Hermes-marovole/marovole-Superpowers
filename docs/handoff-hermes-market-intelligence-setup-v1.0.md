@@ -535,7 +535,37 @@ def cmd_ecommerce(args: argparse.Namespace) -> None:
             f'opencli xiaohongshu search "{kw} 测评 避雷" -f json',
             f'opencli weixin search "{kw} 视频号" -f json',
         ],
-        "4_secondhand_abandonment": [f'opencli xianyu search "{kw} 闲置 未拆封" -f json'],
+        "4_secondhand_abandonment": [
+            f'opencli xianyu search "{kw} 闲置 未拆封" -f json',
+            f'python3 ~/.config/agent-research-router/search.py search \'site:goofish.com OR site:smzdm.com "闲鱼" "{kw}" ("闲置" OR "未拆封" OR "代充")\' --engine serper',
+        ],
+    }
+    print(json.dumps(plan, indent=2, ensure_ascii=False) if args.json else "\\n".join(f"[{k}]\\n  " + "\\n  ".join(v) for k, v in plan.items()))
+
+def cmd_hiring(args: argparse.Namespace) -> None:
+    kw, comp = args.keyword.strip(), args.competitors.strip() or args.keyword.strip()
+    plan = {
+        "1_cn_private_domain_sop": [f'python3 ~/.config/agent-research-router/search.py search \'site:zhaopin.com OR site:liepin.com OR site:zhipin.com ("{kw}" OR "{comp}") ("岗位职责" OR "私域" OR "SOP" OR "复购")\' --engine serper'],
+        "2_global_caseload_and_ai": [f'python3 ~/.config/agent-research-router/search.py search \'(site:greenhouse.io OR site:lever.co OR site:jobs.primary.vc) ("{comp}") ("caseload" OR "per user" OR "AI" OR "commerce")\' --engine serper'],
+    }
+    print(json.dumps(plan, indent=2, ensure_ascii=False) if args.json else "\\n".join(f"[{k}]\\n  " + "\\n  ".join(v) for k, v in plan.items()))
+
+def cmd_pubmed(args: argparse.Namespace) -> None:
+    q = args.query.strip()
+    url = f"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query={urllib.parse.quote(q)}&format=json&resultType=core&pageSize={args.limit}"
+    data = _http_get_json(url, timeout=20)
+    papers = [{"pmid": r.get("pmid") or r.get("id"), "year": r.get("pubYear"), "title": r.get("title"), "url": f"https://pubmed.ncbi.nlm.nih.gov/{r.get('pmid')}/", "abstract": (r.get("abstractText") or "")[:600]} for r in data.get("resultList", {}).get("result", [])]
+    print(json.dumps(papers, indent=2, ensure_ascii=False) if args.json else "\\n".join(f"[{p['year']} | PMID:{p['pmid']}] {p['title']} ({p['url']})" for p in papers))
+
+def cmd_radar(args: argparse.Namespace) -> None:
+    kw, comp = args.keyword.strip(), args.competitors.strip() or args.keyword.strip()
+    plan = {
+        "1_12315_blackcat_complaints": [f'python3 ~/.config/agent-research-router/search.py search \'(site:tousu.sina.com.cn OR "黑猫投诉" OR "12315") ("{kw}" OR "{comp}") ("退款" OR "诱导" OR "自动扣费")\' --engine serper'],
+        "2_macro_policy_tailwinds": [f'python3 ~/.config/agent-research-router/search.py search \'(site:nhc.gov.cn OR site:gov.cn OR "指导原则") "{kw}"\' --engine serper'],
+        "3_podcast_xiaoyuzhou_mindshare": [f'python3 ~/.config/agent-research-router/search.py search \'(site:xiaoyuzhoufm.com OR "小宇宙") "{kw}"\' --engine serper'],
+        "4_competitor_d2c_bundles": [f'python3 ~/.config/agent-research-router/search.py search \'(inurl:collections/all OR inurl:pages/quiz) ({comp})\' --engine serper'],
+        "5_substitute_rebound_backlash": [f'python3 ~/.config/agent-research-router/search.py search \'("{kw}" OR "司美格鲁肽" OR "替尔泊肽" OR "埋线" OR "断食") ("停药" OR "反弹" OR "急诊")\' --engine serper'],
+        "6_affiliate_commission_split": [f'python3 ~/.config/agent-research-router/search.py search \'("蝉妈妈" OR "精选联盟" OR "佣金率") ("{kw}" OR "{comp}")\' --engine serper'],
     }
     print(json.dumps(plan, indent=2, ensure_ascii=False) if args.json else "\\n".join(f"[{k}]\\n  " + "\\n  ".join(v) for k, v in plan.items()))
 
@@ -576,10 +606,13 @@ def main():
     sub = p.add_subparsers(dest="cmd", required=True)
     sp_i = sub.add_parser("intent"); sp_i.add_argument("seed"); sp_i.add_argument("--json", action="store_true")
     sp_e = sub.add_parser("ecommerce"); sp_e.add_argument("keyword"); sp_e.add_argument("--json", action="store_true")
+    sp_h = sub.add_parser("hiring"); sp_h.add_argument("keyword"); sp_h.add_argument("-c", "--competitors", default=""); sp_h.add_argument("--json", action="store_true")
+    sp_p = sub.add_parser("pubmed"); sp_p.add_argument("query"); sp_p.add_argument("-n", "--limit", type=int, default=8); sp_p.add_argument("--json", action="store_true")
+    sp_r = sub.add_parser("radar"); sp_r.add_argument("keyword"); sp_r.add_argument("-c", "--competitors", default=""); sp_r.add_argument("--json", action="store_true")
     sp_q = sub.add_parser("queries"); sp_q.add_argument("-c", "--company", required=True); sp_q.add_argument("-i", "--industry", default=""); sp_q.add_argument("--json", action="store_true")
     sp_s = sub.add_parser("size"); sp_s.add_argument("--tam-total", type=float, required=True); sp_s.add_argument("--sam-pct", type=float, default=0.15); sp_s.add_argument("--som-pct", type=float, default=0.02); sp_s.add_argument("--total-customers", type=float, required=True); sp_s.add_argument("--reachable-customers", type=float, required=True); sp_s.add_argument("--conv-rate", type=float, default=0.02); sp_s.add_argument("--acv", type=float, required=True)
     args = p.parse_args()
-    {"intent": cmd_intent, "ecommerce": cmd_ecommerce, "queries": cmd_queries, "size": cmd_size}[args.cmd](args)
+    {"intent": cmd_intent, "ecommerce": cmd_ecommerce, "hiring": cmd_hiring, "pubmed": cmd_pubmed, "radar": cmd_radar, "queries": cmd_queries, "size": cmd_size}[args.cmd](args)
 
 if __name__ == "__main__":
     main()
@@ -626,9 +659,11 @@ description: "Use when doing market/competitor/10-K/GTM intel."
 - **后端弃坑率检测（闲鱼测试法）**：`opencli xianyu search "<竞品> 闲置 未拆封" -f json`（检验冲动消费 vs 真实长期复购）。
 - **用户手工土办法（Workaround）与迁移原话**：用 `opencli xiaohongshu`、`opencli reddit`、`opencli zhihu` 寻找用户自制表格、分装药盒或 `"换到了" / "switched from"` 原话，转化为产品核心功能切口（Feature Wedge）。
 
-## Step 5: 并发竞品侦察兵与魔鬼代言人反方压测 (Scouts & Devil's Advocate)
-1. 用 `firecrawl_map` 扫描竞品全站目录结构（识别 `/quiz`、`/calculator`、`/vs` 获客漏斗），用 `opencli boss` / `linkedin` 查竞品在招岗位 JD（逆向工程其未来 6 个月产品路线图）。
-2. **魔鬼代言人（Devil's Advocate）强制三问**：① 为什么财大气粗的巨头没做这个功能（是算不过账还是合规红线）？② 哪条结论目前只有孤证？③ 前 100 个真实付费客户具体从哪个词/哪个钩子进来？
+## Step 5: 招聘人效底牌 (`hiring`) × 临床循证 (`pubmed`) × 六维深层生态雷达 (`radar`) × 魔鬼代言人压测
+1. **招聘 JD 人效与私域 SOP 逆向 (`market_intel_tool.py hiring`)**：抓取智联/猎聘/BOSS直聘及海外 Greenhouse/Primary VC 上的真实 JD，提取竞品私域 SOP、单教练管理客户上限（如 `Up to 500 users`）与单客月均人工计件成本（如 `$5/user/mo`）。
+2. **临床文献循证 (`market_intel_tool.py pubmed`)**：直连 Europe PMC REST API 拉取最新临床文献（带 PMID/DOI/摘要），从分子机制支撑痛点。
+3. **六维深层生态与风控雷达 (`market_intel_tool.py radar`)**：一键扫描 ① 黑猫投诉/12315 退费与自动扣费红线、② 国家卫健委等部委政策红利、③ 小宇宙播客高净值人群心智、④ 海外标杆 D2C 商城（`collections/all`）症状提问卡与三件套 Bundle 定价、⑤ 激进替代方案（如 GLP-1 减肥针/医美）停药反弹承接窗、⑥ 蝉妈妈/精选联盟达人带货佣金率。
+4. **魔鬼代言人（Devil's Advocate）强制三问**：① 为什么财大气粗的巨头没做这个功能（是算不过账还是合规红线）？② 哪条结论目前只有孤证？③ 前 100 个真实付费客户具体从哪个词/哪个钩子进来？
 
 ## Step 6: Grounding 原文引用台账与浅色一页式 HTML 报告交付
 所有数字、日期、财报口径、竞品价格和用户原话必须附真实抓取 URL 与逐字引语，最终输出一份**浅色简洁、一页到底的独立 HTML 报告** + Markdown 存档。
