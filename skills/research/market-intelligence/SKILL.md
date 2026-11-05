@@ -1,7 +1,7 @@
 ---
 name: market-intelligence
 description: "Use when doing market/competitor/10-K/GTM intel."
-version: 2.0.0
+version: 2.1.0
 author: 智子 (Hermes Agent)
 license: MIT
 metadata:
@@ -36,7 +36,7 @@ metadata:
 ## Success Criteria (全维度大样本默认门禁 — 每次调研必须一次到位，不许等用户追问才补抓)
 
 - **大样本一手数据硬门槛（默认 ≥300–1,000 条原始记录落盘）**：每次调研必须在 `~/.hermes/cache/scratch/<topic>_research/` 下落盘保存原始 JSON/MD 抓取数据包，严禁只搜 5 条网页摘要就写报告。
-- **八维全覆盖（缺一不可）**：
+- **十四维全覆盖（缺一不可，由 `intent` / `ecommerce` / `hiring` / `pubmed` / `radar` / `queries` / `size` 7 大子命令驱动）**：
   1. **自家产品契约审计**：先读本地代码仓/线上文案，列出「教科书视角 vs 用户任务视角」病灶对照表；
   2. **6 大平台实时搜索动作 (`intent`)**：跑满 3–5 个核心词根（200+ 条下拉联想词）；
   3. **电商交易与买家评论 (`ecommerce` + `opencli`)**：同人群下对比 5 种交付形态（纯视频/静态表/图书 vs 1v1 服务 vs 高毛利实物）的真实售价、付款人数与 80+ 条买家评论原话；
@@ -44,7 +44,13 @@ metadata:
   5. **闲鱼（Goofish）二手弃坑率与灰产代充监测**：通过 `opencli xianyu` 或 `site:goofish.com` / `site:smzdm.com` 抓取二手抛售价格、弃坑理由与会员代充价梯；
   6. **国内外行业招聘 JD 逆向 (`hiring`)**：从智联招聘/猎聘/BOSS直聘及海外 Greenhouse/Lever/Primary VC 抓取真实 JD 原文，拆出竞品私域 SOP、单教练管理人数上限（Caseload）与单客人工计件成本（如 $5/user/mo）；
   7. **四大标杆招股书/财报 + 社媒高赞评论 + PubMed 临床文献 (`queries` + `pubmed`)**：抓取 200+ 条 B站/小红书/知乎/Reddit 高赞用户原话，以及 20–50 篇 PubMed/Europe PMC 最新临床医学文献（带 PMID/DOI）；
-  8. **TAM/SAM/SOM 双向三角校验 (`size`) + 1,000 人池单位经济模型 + Grounding 引用台账 (`sources.py verify`)**。
+  8. **消费者维权与退费黑洞 (`radar` 维度 1：黑猫投诉 / 12315)**：抓取竞品在黑猫投诉/12315 上的真实退费金额、自动扣费纠纷与诱导消费客诉，作为产品风控与信任背书设计底线；
+  9. **国家部委政策红利与公立医院风向 (`radar` 维度 2：卫健委 / 临床指南)**：抓取最新国家政策（如国家卫健委“体重管理年”三年行动与指导原则），对齐合规借势话术；
+  10. **一二线高净值人群长音频心智 (`radar` 维度 3：小宇宙播客 Show Notes 与高赞评论)**：抓取小宇宙播客单集大纲与评论区原话，识别高认知女性对“制造焦虑话术”的反感点与社群导流钩子；
+  11. **全球标杆 D2C 商城 SKU 命名与套餐打包逆向 (`radar` 维度 4：如 `shop.joinmidi.com`)**：抓取海外标杆独立站全量 SKU、症状提问式 Bullet Points、3 件套 Bundle 锚定与 Subscribe & Save 20%–30% 订阅锁客机制；
+  12. **激进替代方案翻车与停药反弹黄金承接窗 (`radar` 维度 5：如 GLP-1 减肥针停药反弹 / 医美埋线)**：抓取 STEP-1 / SURMOUNT-4 / BMJ 停药反弹率、真实世界 3 年留存率（仅 1/12）及滥用急诊案例，找到承接“停针防反弹”高付费人群的切口；
+  13. **达人分销与精选联盟佣金结构 (`radar` 维度 6：蝉妈妈 / 精选联盟)**：摸清抖音/视频号带货高佣比例，测算自建内容矩阵 vs 达人分销的渠道成本；
+  14. **TAM/SAM/SOM 双向三角校验 (`size`) + 1,000 人池单位经济模型 + Grounding 引用台账 (`sources.py verify`)**。
 - 每一条市场规模、毛利率、CAC、LTV、留存率、价格、招聘 KPI 与用户原话，均附有本次实际抓取的 URL 与逐字引语（通过 `sources.py verify` 输出 `citations OK`）。
 - 最终输出包含：**浅色简洁一页到底的独立 HTML 报告** + **Markdown 存档** + **本地原始 JSON 样本库路径说明**。
 
@@ -184,4 +190,4 @@ SOURCES_PY=~/.hermes/skills/research/grounded-citations/scripts/sources.py
 - `references/user-behavior-and-willingness-to-pay.md` — 用户搜索动作（6 大平台 autocomplete 实测端点与词根裂变模板）、付费意愿（同人群×五形态付费极性对照法、京东/淘宝/闲鱼弃坑率/1688 源头底价）、使用断崖、`opencli` 181 站点命令映射与各站 JSON 字段速查、四象限机会公式。
 - `references/persona-and-business-closed-loop.md` — 人群画像与商业闭环手册：先审自家文案的病灶对照表、从 autocomplete 长尾反推 ICP（年龄性别限定词/恐惧词/「吃什么补什么」词）、三级画像与 JTBD 陈述结构、四象标杆选择表、四阶漏斗与 1,000 人单位经济测算。
 - `references/competitor-dossier-schema.md` — 失忆侦察兵（Scout）标准 JSON Dossier 结构、网站目录树信号表与魔鬼代言人质询清单。
-- `scripts/market_intel_tool.py` — 实时用户搜索意图与电商下拉词采集器 (`intent`) + 八大电商/直播带货/1688 底价采集矩阵生成器 (`ecommerce`) + 招股书/财报/差评检索式生成器 (`queries`) + TAM/SAM/SOM 双向三角校验 CLI (`size`)。
+- `scripts/market_intel_tool.py` — 实时用户搜索意图与电商下拉词采集器 (`intent`) + 八大电商/直播带货/1688 底价采集矩阵生成器 (`ecommerce`) + 国内外招聘 JD 逆向检索器 (`hiring`) + Europe PMC/PubMed 临床文献直连抓取器 (`pubmed`) + 六维生态与风控雷达 (`radar`：黑猫投诉12315/部委政策/小宇宙播客/D2C商城Bundle/替代品反弹/达人佣金) + 招股书/财报检索式生成器 (`queries`) + TAM/SAM/SOM 双向三角校验 CLI (`size`)。

@@ -6,8 +6,9 @@ Subcommands:
   2. ecommerce -- Generate 8-platform e-commerce & social-commerce (JD / Taobao / 1688 / Xianyu / Douyin / Xiaohongshu / WeChat Channels / Pinduoduo / Amazon) commands & queries.
   3. hiring    -- Generate domestic & overseas hiring JD reverse-engineering queries (Zhaopin / Boss / Liepin / Greenhouse / Lever / Ashby) for SOP, caseload KPI & salary floor.
   4. pubmed    -- Live fetch clinical papers & RCTs via Europe PMC REST API (avoiding NCBI E-utilities 500 error) with PMID, DOI, year & abstract.
-  5. queries   -- Generate targeted search queries for Prospectuses (S-1/HKEX/CN), 10-K/Earnings, VOC 1-3 star reviews, and GTM funnels.
-  6. size      -- Compute Top-Down vs Bottom-Up TAM/SAM/SOM and flag triangulation failures (>3x divergence).
+  5. radar     -- 6-dimension deep ecosystem radar (12315/BlackCat complaints, Government policies, Podcast/Xiaoyuzhou deep audio, Competitor D2C store/quiz bundling, Alternative solution rebound/side-effects, Affiliate commission rates).
+  6. queries   -- Generate targeted search queries for Prospectuses (S-1/HKEX/CN), 10-K/Earnings, VOC 1-3 star reviews, and GTM funnels.
+  7. size      -- Compute Top-Down vs Bottom-Up TAM/SAM/SOM and flag triangulation failures (>3x divergence).
 """
 import argparse
 import concurrent.futures
@@ -247,6 +248,42 @@ def cmd_pubmed(args: argparse.Namespace) -> None:
                 print(f"   Abstract: {p['abstract'][:320]}...")
 
 
+def cmd_radar(args: argparse.Namespace) -> None:
+    kw = args.keyword.strip()
+    comp = args.competitors.strip() or kw
+    plan = {
+        "keyword": kw,
+        "1_consumer_protection_complaints (黑猫投诉/12315/Trustpilot：退费纠纷、诱导扣费、副作用红线)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'(site:tousu.sina.com.cn OR "黑猫投诉" OR "12315") ("{kw}" OR "{comp}") ("退款" OR "诱导" OR "自动扣费" OR "无效" OR "副作用")\' --engine serper -n 10',
+        ],
+        "2_macro_policy_and_hospital_tailwinds (国家部委政策红利与公立医院门诊风向：如卫健委体重管理年/指南)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'(site:nhc.gov.cn OR site:gov.cn OR "指导原则" OR "专家共识") "{kw}" ("2024" OR "2025" OR "2026")\' --engine serper -n 8',
+        ],
+        "3_podcast_deep_mindshare (小宇宙/播客长音频：一二线高净值女性深度心智、反焦虑共鸣与私域导流)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'(site:xiaoyuzhoufm.com OR "小宇宙") ("{kw}")\' --engine serper -n 8',
+        ],
+        "4_competitor_d2c_store_and_bundles (海外/国内标杆D2C商城解剖：痛点症状命名法、套餐打包与Subscribe折扣)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'(inurl:collections/all OR inurl:products OR inurl:pages/quiz) ({comp})\' --engine serper -n 10',
+        ],
+        "5_substitute_backlash_and_rebound (激进替代方案翻车与停药反弹：如GLP-1减肥针停药反弹/急诊、医美埋线、断食伤胃)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'("{kw}" OR "司美格鲁肽" OR "替尔泊肽" OR "埋线" OR "断食") ("停药" OR "反弹" OR "复胖" OR "急诊" OR "副作用")\' --engine serper -n 10',
+        ],
+        "6_affiliate_commission_and_channel_split (蝉妈妈/精选联盟/分销佣金率：看穿达人带货分润结构)": [
+            f'python3 ~/.hermes/skills/research/web-search/scripts/search.py search \'("蝉妈妈" OR "精选联盟" OR "考古加" OR "佣金率" OR "高佣") ("{kw}" OR "{comp}")\' --engine serper -n 8',
+        ],
+    }
+    if args.json:
+        print(json.dumps(plan, indent=2, ensure_ascii=False))
+    else:
+        print(f"=== 6-Dimension Ecosystem & Risk Radar: '{kw}' (Competitors: {comp}) ===")
+        for sec, cmds in plan.items():
+            if sec == "keyword":
+                continue
+            print(f"\n[{sec}]")
+            for c in cmds:
+                print(f"  • {c}")
+
+
 def cmd_queries(args: argparse.Namespace) -> None:
     c = args.company
     ind = args.industry or c
@@ -359,6 +396,11 @@ def main() -> None:
     sp_p.add_argument("--limit", "-n", type=int, default=8)
     sp_p.add_argument("--json", action="store_true")
 
+    sp_r = sub.add_parser("radar", help="Generate 6-dimension ecosystem radar (12315/BlackCat, Gov policy, Xiaoyuzhou podcast, D2C bundles, GLP-1 rebound, Affiliate commission)")
+    sp_r.add_argument("keyword", help="Core topic keyword (e.g. '体重管理', '皮质醇 减肥')")
+    sp_r.add_argument("--competitors", "-c", default="", help="Competitor names or domains (e.g. '兴趣岛 OR Keep OR shop.joinmidi.com')")
+    sp_r.add_argument("--json", action="store_true")
+
     sp_q = sub.add_parser("queries", help="Generate prospectus, earnings, VOC, and GTM search queries")
     sp_q.add_argument("--company", "-c", required=True, help="Target company or competitor name")
     sp_q.add_argument("--industry", "-i", default="", help="Industry or category name")
@@ -385,6 +427,8 @@ def main() -> None:
         cmd_hiring(args)
     elif args.cmd == "pubmed":
         cmd_pubmed(args)
+    elif args.cmd == "radar":
+        cmd_radar(args)
     elif args.cmd == "queries":
         cmd_queries(args)
     elif args.cmd == "size":
