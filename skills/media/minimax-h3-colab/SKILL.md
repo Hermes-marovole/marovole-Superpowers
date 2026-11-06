@@ -58,6 +58,10 @@ Stop: never leave a VM running (`./h3.sh down` or `colab_meter.py stop`, ~8.71 C
 
 ## Character / choreography workflow
 - Make one character ref with gpt-image-2 (Dogbooks), then pose keyframes via /v1/images/edits using the ref + official movement cues; center-crop to 768x1344.
+- **Anti-drift keyframe triad (from `ai-story-video-director`)**:
+  1. **Reverse keyframe order**: draw the densest frame first (usually the **tail frame**), then derive the **head frame** from the tail frame so camera pose and background geometry stay 100% locked.
+  2. **Code-cropped push-in**: for slow push-in shots, crop and upscale the head frame in code to create the tail frame (never re-generate the tail frame with AI or keep head==tail).
+  3. **Patch-back local edits & diff gate**: `/v1/images/edits` re-encodes the entire image and subtly shifts background walls/props; paste only the edited bounding box back onto the original image (`precheck_keyframes.py patch`) and run `precheck_keyframes.py diff` before starting G4 so untouched background pixels have zero drift.
 - Generate each shot FL2V with first=pose A, last=pose B; chain shots so clip N's last keyframe = clip N+1's first -> seamless joins (drop the duplicate frame).
 - Prompt: fixed camera, 无字幕无任何文字, slow even motion; H3 audio is discarded. Check every clip with a 0.5 s contact sheet; fix wrong end poses by regenerating the keyframe (e.g. arms not fully straight), not the prompt.
 - Exercise / follow-along course videos (action libraries, reps×sets, countdown UI, per-move cue audio, two-shot A→B/B→A looping, primitive dedup, turbo-then-standard): follow the `exercise-follow-along-video` skill — it owns the full pipeline, assembly script and QA checklist.

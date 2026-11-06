@@ -54,6 +54,7 @@ marovole-Superpowers/
 | interview-quote-image-posts | [skills/content-publishing/interview-quote-image-posts/](skills/content-publishing/interview-quote-image-posts/) | 英文访谈/名人演讲 → 中文字幕长图帖：选题→下载→出图→Gemini 审核→小红书/抖音/公众号发布→数据复盘 |
 | exercise-follow-along-video | [skills/media/exercise-follow-along-video/](skills/media/exercise-follow-along-video/) | 运动跟练视频：拆实拍样例→gpt-image-2 定妆与姿势关键帧→MiniMax H3 首尾帧→循环拼装+倒计时 UI+验收 |
 | minimax-h3-colab | [skills/media/minimax-h3-colab/](skills/media/minimax-h3-colab/) | Colab G4（RTX PRO 6000 96GB）上用 MiniMax H3 出 768p 视频+立体声：文生 / 首尾帧 / 多镜头参考，跑完必须停机 |
+| ai-story-video-director | [skills/media/ai-story-video-director/](skills/media/ai-story-video-director/) | AI 叙事/动画短片总导演工作流：38%/62% 黄金位黑白对比预检 → 首尾帧防漂移三件套（倒序/代码推镜/局部贴回+叠片 Diff） → 七段式提示词+20大翻车表 → 零上下文盲审 → 代码后期抢救 |
 
 完整 live registry 请查看本机：
 
