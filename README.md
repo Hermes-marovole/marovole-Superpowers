@@ -53,6 +53,7 @@ marovole-Superpowers/
 | neumina-lifestyle-course-design | [skills/autonomous-ai-agents/neumina-lifestyle-course-design/](skills/autonomous-ai-agents/neumina-lifestyle-course-design/) | Neumina 14 天生活方式课设计骨架（抗炎→皮质醇等主题迁移） |
 | interview-quote-image-posts | [skills/content-publishing/interview-quote-image-posts/](skills/content-publishing/interview-quote-image-posts/) | 英文访谈/名人演讲 → 中文字幕长图帖：选题→下载→出图→Gemini 审核→小红书/抖音/公众号发布→数据复盘 |
 | exercise-follow-along-video | [skills/media/exercise-follow-along-video/](skills/media/exercise-follow-along-video/) | 运动跟练视频：拆实拍样例→gpt-image-2 定妆与姿势关键帧→MiniMax H3 首尾帧→循环拼装+倒计时 UI+验收 |
+| minimax-h3-colab | [skills/media/minimax-h3-colab/](skills/media/minimax-h3-colab/) | Colab G4（RTX PRO 6000 96GB）上用 MiniMax H3 出 768p 视频+立体声：文生 / 首尾帧 / 多镜头参考，跑完必须停机 |
 
 完整 live registry 请查看本机：
 
@@ -169,4 +170,4 @@ Superpowers 仓库只保存：
 
 ---
 
-*来自翡冷翠* | 持续更新于 2026-09-02
+*来自翡冷翠* | 持续更新于 2026-11-06
