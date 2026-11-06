@@ -1,4 +1,4 @@
-# Superpowers
+# marovole-skills
 
 > 让你的 Agent 直接接管市场调研、写书、做片和发帖：从本机 120+ 个 Agent 技能里筛出的 10 个主力实战 Skill（含单篇 50 万+ 浏览的「大佬说」访谈长图管线、单次强制落盘 300+ 原始样本的 14 维商业情报、13 阶段全自动写书与零漂移 AI 短片导演），每个都自带验收脚本和防翻车护栏。
 
@@ -17,8 +17,8 @@
 本仓库的定位是：
 
 1. 保存高信号 AI / Product / Biohacking / Agent 工作流文档
-2. 存放少量已经推广为公共资产的精选 skills
-3. 记录 Superpowers 技能体系的分类、审计、重构和吸收过程
+2. 存放少量已经推广为公共资产的精选 `marovole-*` 系列 skills
+3. 记录技能体系的分类、审计、重构和吸收过程
 4. 作为个人能力复利系统的 GitHub 版本化出口
 
 ---
@@ -43,7 +43,7 @@
 ## 当前仓库结构
 
 ```text
-marovole-Superpowers/
+marovole-skills/
 ├── README.md
 ├── docs/                 # 主体：研究、教程、工具评估、工作流文档
 ├── research/             # 研究报告与专题分析
@@ -160,7 +160,7 @@ git push
 /Users/marovole/.hermes/skills
 ```
 
-Superpowers 仓库只保存：
+`marovole-skills` 仓库只保存：
 
 - 重要研究和教程文档
 - 值得公开/迁移/复用的 promoted skills
