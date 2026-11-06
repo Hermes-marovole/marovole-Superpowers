@@ -1,6 +1,12 @@
 # Superpowers
 
-> 个人知识工程与精选 Skills 仓库：从 X、Reddit、Newsletter、GitHub 和开源社区捕获高信号内容，沉淀为可复用的方法、文档与少量经过验证的 Hermes Skills。
+> 让你的 Agent 直接接管市场调研、写书、做片和发帖：从本机 120+ 个 Agent 技能里筛出的 10 个主力实战 Skill（含单篇 50 万+ 浏览的「大佬说」访谈长图管线、单次强制落盘 300+ 原始样本的 14 维商业情报、13 阶段全自动写书与零漂移 AI 短片导演），每个都自带验收脚本和防翻车护栏。
+
+装上之后，直接对你的 Claude Code、Codex 或 Hermes 说一句：
+- `做一条大佬说 <YouTube/X访谈链接>` — 自动切出 1080p 正脸特写 + 中英对译字幕长图（实测单篇最高 **50 万+ 浏览**，多篇 12w+/5.8w/3.6w）
+- `用 market-intelligence 深度调研 XX 行业` — 先往硬盘落够 **300–1,000 条** 招股书、1688 底价、闲鱼弃坑、黑猫投诉与差评原始数据，才准动笔写报告
+- `用 doctor-book 给某医生写一本 10 万字科普书` — **13 个阶段**全自动跑完素材入库、文风提炼、医学合规挑刺到 `docx/epub` 投稿包
+- `用 ai-story-video-director 导一支 30 秒短片` — 文字 ¥0 改错，首尾帧背景像素差锁死为 **0**、过零上下文盲审才准送去烧钱渲染
 
 本仓库不是 `~/.hermes/skills` 的完整镜像。完整 live skill registry 以本机 Hermes 环境为准：
 
@@ -44,17 +50,20 @@ marovole-Superpowers/
 └── skills/               # 精选 promoted Hermes skills，不是完整 registry
 ```
 
-当前 promoted skills：
+当前 promoted skills（共 10 个）：
 
-| Skill | 路径 | 用途 |
+| Skill | 路径 | 一句话结果与核心护栏 |
 |---|---|---|
-| dokobot | [skills/dokobot/](skills/dokobot/) | 用真实 Chrome 浏览器读取 JS-heavy / login-walled 页面 |
-| link2doc | [skills/research/link2doc/](skills/research/link2doc/) | 从链接/来源整理文档并提交到 GitHub 的内容策展流程 |
-| neumina-lifestyle-course-design | [skills/autonomous-ai-agents/neumina-lifestyle-course-design/](skills/autonomous-ai-agents/neumina-lifestyle-course-design/) | Neumina 14 天生活方式课设计骨架（抗炎→皮质醇等主题迁移） |
-| interview-quote-image-posts | [skills/content-publishing/interview-quote-image-posts/](skills/content-publishing/interview-quote-image-posts/) | 英文访谈/名人演讲 → 中文字幕长图帖：选题→下载→出图→Gemini 审核→小红书/抖音/公众号发布→数据复盘 |
-| exercise-follow-along-video | [skills/media/exercise-follow-along-video/](skills/media/exercise-follow-along-video/) | 运动跟练视频：拆实拍样例→gpt-image-2 定妆与姿势关键帧→MiniMax H3 首尾帧→循环拼装+倒计时 UI+验收 |
-| minimax-h3-colab | [skills/media/minimax-h3-colab/](skills/media/minimax-h3-colab/) | Colab G4（RTX PRO 6000 96GB）上用 MiniMax H3 出 768p 视频+立体声：文生 / 首尾帧 / 多镜头参考，跑完必须停机 |
-| ai-story-video-director | [skills/media/ai-story-video-director/](skills/media/ai-story-video-director/) | AI 叙事/动画短片总导演工作流：38%/62% 黄金位黑白对比预检 → 首尾帧防漂移三件套（倒序/代码推镜/局部贴回+叠片 Diff） → 七段式提示词+20大翻车表 → 零上下文盲审 → 代码后期抢救 |
+| **interview-quote-image-posts**（大佬说） | [skills/content-publishing/interview-quote-image-posts/](skills/content-publishing/interview-quote-image-posts/) | **单篇最高 50 万+ 浏览**（多篇 12w+/5.8w/3.6w）：外文访谈 → 3:4 真人特写中文字幕长图；自动筛 1080p 原片、OpenCV 检出 ≥200px 正脸特写、避开 0.82 水印区、过 Gemini 盲审 `PASS` 后出多平台发布包 |
+| **market-intelligence** | [skills/research/market-intelligence/](skills/research/market-intelligence/) | **单次强制落盘 ≥300–1,000 条一手样本**：14 维全覆盖（美港 A 股招股书、200+ 搜索联想词、80+ 电商买家评论、30–60 家 1688 代工底价、闲鱼弃坑率、招聘 JD 私域成本、黑猫投诉、20–50 篇 PubMed 文献），交付浅色一页到底 HTML |
+| **doctor-book** | [skills/content-publishing/doctor-book/](skills/content-publishing/doctor-book/) | **13 阶段全自动写完 8–12 万字医生健康科普书**：从访谈入库、10+ 原句文风提取、三幕 10–14 章大纲，到 `lint_chapter.py` 质检、医学 6 大高危区合规挑刺，直接导出 `book.docx` / `book.epub` 与出版社投稿包 |
+| **ai-story-video-director** | [skills/media/ai-story-video-director/](skills/media/ai-story-video-director/) | **首尾帧零漂移 + 最低抽卡率 AI 短片总导演**：人物锁 38%/62% 黄金位、倒序作画 + 局部修改 `patch` 贴回锁死背景像素差为 0、7 段式提示词 + 20 大翻车黑名单、零上下文盲审放行后才送渲染 |
+| **exercise-follow-along-video** | [skills/media/exercise-follow-along-video/](skills/media/exercise-follow-along-video/) | **运动跟练视频管线**：拆解实拍样例 → `gpt-image-2` 锁死人物设定与动作关键帧 → MiniMax H3 首尾帧生成 → 循环拼装 + 倒计时 UI + 成片验收 |
+| **minimax-h3-colab** | [skills/media/minimax-h3-colab/](skills/media/minimax-h3-colab/) | **Colab G4（RTX PRO 6000 96GB）跑 MiniMax H3 视频**：直出 768p 视频 + 立体声音频（文生 / 首尾帧 / 多镜头参考），内置跑完强制销毁运行时防漏扣 CCU |
+| **neumina-lifestyle-course-design** | [skills/autonomous-ai-agents/neumina-lifestyle-course-design/](skills/autonomous-ai-agents/neumina-lifestyle-course-design/) | **14 天生活方式训练营课程骨架**：从抗炎饮食到皮质醇管理等主题的一键迁移课程设计系统 |
+| **link2doc** | [skills/research/link2doc/](skills/research/link2doc/) | **外部链接 → 结构化知识库文档**：从网页、长文、GitHub 收集高信号内容，整理成可复现 Markdown 文档并归档入库 |
+| **x2doc** | [skills/research/x2doc/](skills/research/x2doc/) | **X/Twitter 帖子 → 深度文档 + 转发推文 + 邮件简报**：自动抓取 X 长文、Quote 链与评论区洞察，一键生成知识库文档与可复制转发语 |
+| **dokobot** | [skills/dokobot/](skills/dokobot/) | **真实 Chrome 网页提取器**：用带登录态的真实浏览器读取 JS-heavy 或登录墙后的深层网页内容 |
 
 完整 live registry 请查看本机：
 
