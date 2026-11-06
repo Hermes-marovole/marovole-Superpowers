@@ -18,7 +18,7 @@
 | **P0 必配** | **Exa AI** | 语义/神经搜索、找论文/GitHub/相似竞品公司 | 注册送免费 Credits | `xxxxxxxx-xxxx-...` (UUID) | [dashboard.exa.ai/api-keys](https://dashboard.exa.ai/api-keys) |
 | **P0 必配** | **Tavily** | AI 深度研究、原理解析、多源聚合问答 | **每月 1,000 次免费**（免绑卡） | `tvly-dev-...` 或 `tvly-...` | [app.tavily.com/home](https://app.tavily.com/home) |
 | **P0 必配** | **Firecrawl** | 动态网页/PDF招股书转纯净 Markdown、全站爬取 | 注册送 **500 页免费额度** | `fc-...` | [firecrawl.dev/app/api-keys](https://www.firecrawl.dev/app/api-keys) |
-| **P0 必配** | **Serper.dev** | **Google 原始搜索结果**（查价格/招股书/电商/site:语法最准） | 注册送 **2,500 次免费 Google 查询** | 40 位十六进制字符串 | [serper.dev/api-key](https://serper.dev/api-key) |
+| **P0 必配** | **Serper.dev** | **Google 原始搜索结果**（查价格/招股书/电商/site:语法最准） | 注册送 **2,500 次免费 Google 查询** | 40 位十六进制字符串 | [serper.dev/api-keys](https://serper.dev/api-keys) |
 | **P1 推荐** | **Brave Search** | 独立索引高速网页搜索、时效新闻与本地商业检索 | Free AI 档 **每月 2,000 次免费** | `BSA...` | [api-dashboard.search.brave.com](https://api-dashboard.search.brave.com/) |
 | **P1 推荐** | **TinyFish** | 免费 Search/Fetch + 远程云端浏览器自然语言提取 JSON | Search 与 Fetch 接口免费 | `tf_...` | [agent.tinyfish.ai](https://agent.tinyfish.ai) |
 | **免 Key** | **内置免鉴权武器** | **6大平台下拉词雷达 (百度/Google/必应/淘宝/Amazon/YouTube) + OpenCLI 181 站点 + Context7 + Jina + DDGS** | **永久免费、无需注册** | 无需 Key | 脚本自动内置配置 |
